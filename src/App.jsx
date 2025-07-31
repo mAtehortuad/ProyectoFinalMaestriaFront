@@ -14,6 +14,8 @@ import BookStatus from './components/admin/BookStatus';
 import BookSearch from './components/search/BookSearch';
 import UserSearch from './components/search/UserSearch';
 import MyLoans from './components/user/MyLoans';
+import UserBooks from './components/user/UserBooks';
+import UserProfile from './components/user/UserProfile';
 import ProtectedRoute from './components/auth/ProtectedRoute';
 import './App.css';
 
@@ -126,6 +128,22 @@ function App() {
                 element={
                   <ProtectedRoute requiredRole="user">
                     <MyLoans />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/user/books"
+                element={
+                  <ProtectedRoute requiredRole="user">
+                    <UserBooks />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/user/profile"
+                element={
+                  <ProtectedRoute requiredRole="user">
+                    <UserProfile />
                   </ProtectedRoute>
                 }
               />

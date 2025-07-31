@@ -1,139 +1,139 @@
-# Configuración de Mockoon para Biblioteca API
+# Configuración de Mockoon para Biblioteca Digital
 
-## Instalación y Configuración
+## 📋 Instrucciones de Configuración
 
-### 1. Instalar Mockoon
-- Descargar Mockoon desde: https://mockoon.com/
-- Instalar la aplicación
+### 1. Importar la Configuración
 
-### 2. Importar la Configuración
-1. Abrir Mockoon
-2. Hacer clic en "Import/Export" → "Import"
-3. Seleccionar el archivo `mockoon-config-organized.json`
-4. La configuración se importará automáticamente
+1. Abre Mockoon
+2. Haz clic en "Import/Export" → "Import"
+3. Selecciona el archivo `mockoon-config-organized.json`
+4. Haz clic en "Import"
 
-### 3. Organización de Endpoints
+### 2. Verificar la Configuración
 
-La configuración está organizada en carpetas (folders) reales de Mockoon:
+Después de importar, deberías ver las siguientes carpetas organizadas:
 
-#### 🔐 Autenticación
-- `POST /api/login` - Login de usuario (con múltiples respuestas por tipo de usuario)
-- `GET /api/auth/verify` - Verificar token
-- `POST /api/auth/logout` - Logout de usuario
-- `POST /api/auth/refresh` - Refrescar token
-
-**Nota**: El endpoint de login tiene múltiples respuestas configuradas:
-- **Login Admin** (`admin@biblioteca.com`): Retorna usuario con rol "admin"
-- **Login Bibliotecario** (`bibliotecario@biblioteca.com`): Retorna usuario con rol "librarian"
-- **Login Usuario** (`maria@biblioteca.com`): Retorna usuario con rol "user"
-
-
+#### 📁 Autenticación
+- `POST /api/login` - Login con múltiples respuestas (Admin, Librarian, User)
+- `GET /api/auth/verify` - Verificación de token
+- `POST /api/auth/refresh` - Renovación de token
+- `POST /api/auth/logout` - Cerrar sesión
+- `OPTIONS /api/:path*` - CORS preflight
 
 #### 👥 Gestión de Usuarios
-- `GET /api/users` - Listar usuarios
+- `GET /api/users` - Lista de usuarios
 - `POST /api/users` - Crear usuario
 - `PUT /api/users/:id` - Actualizar usuario
 - `DELETE /api/users/:id` - Eliminar usuario
 
 #### 📚 Gestión de Libros
-- `GET /api/books` - Listar libros
-- `POST /api/books` - Crear libro
-- `PUT /api/books/:id` - Actualizar libro
-- `DELETE /api/books/:id` - Eliminar libro
+- `GET /api/books` - Catálogo de libros (datos generales)
+- `GET /api/categories` - Categorías de libros
+- `GET /api/book-status` - Estados de libros
+- `GET /api/book-inventory` - Inventario individual de libros
 
 #### 📋 Gestión de Préstamos
-- `GET /api/loans` - Listar préstamos
+- `GET /api/loans` - Lista de préstamos
 - `POST /api/loans` - Crear préstamo
 - `PUT /api/loans/:id/return` - Devolver libro
+- `GET /api/users/:userId/loans` - **NUEVO: Préstamos del usuario específico**
 
 #### 📊 Reportes y Configuraciones
-- `GET /api/reports` - Datos de reportes
-- `GET /api/settings` - Configuración del sistema
-- `PUT /api/settings` - Actualizar configuración
+- `GET /api/reports/statistics` - Datos para reportes
+- `GET /api/settings` - Configuraciones del sistema
+- `PUT /api/settings` - Actualizar configuraciones
 
-### 4. Iniciar el Servidor
-1. Hacer clic en el botón "Start" en Mockoon
-2. El servidor se iniciará en `http://localhost:3001`
-3. Verificar que el estado sea "Running"
+### 3. Iniciar el Servidor
 
-### 5. Verificar la Configuración
-- Abrir el navegador y visitar: `http://localhost:3001/api/books`
-- Deberías ver una respuesta JSON con la lista de libros
+1. Selecciona la configuración importada
+2. Haz clic en "Start Server"
+3. El servidor debería iniciarse en `http://localhost:3001`
 
-## Solución de Problemas
+### 4. Verificar Endpoints
 
-### Error: "useAuth debe ser usado dentro de un AuthProvider"
-Este error ocurre cuando:
-1. Mockoon no está ejecutándose
-2. Los endpoints de autenticación no están configurados correctamente
-3. El token no se está generando correctamente
+Puedes probar los endpoints directamente en el navegador:
 
-**Solución:**
-1. Verificar que Mockoon esté ejecutándose en el puerto 3001
-2. Verificar que todos los endpoints de autenticación estén configurados
-3. Limpiar el localStorage del navegador y hacer login nuevamente
+- **Login Admin**: `http://localhost:3001/api/login`
+- **Libros**: `http://localhost:3001/api/books`
+- **Préstamos de Usuario**: `http://localhost:3001/api/users/3/loans` ⭐ **NUEVO**
+- **Reportes**: `http://localhost:3001/api/reports/statistics`
 
-### Error: "Network Error"
-Este error ocurre cuando:
-1. Mockoon no está ejecutándose
-2. El puerto está ocupado por otra aplicación
+### 5. Configuración de CORS
 
-**Solución:**
-1. Verificar que Mockoon esté ejecutándose
-2. Cambiar el puerto en Mockoon si es necesario
-3. Actualizar la configuración de la API en `src/config/api.config.js`
+La configuración incluye headers CORS automáticos:
+- `Access-Control-Allow-Origin: *`
+- `Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS`
+- `Access-Control-Allow-Headers: Content-Type, Authorization, X-Requested-With`
+- `Access-Control-Allow-Credentials: true`
 
-### Error: "CORS Error"
-Este error ocurre cuando:
-1. El navegador bloquea las peticiones por CORS
+### 6. Datos de Prueba
 
-**Solución:**
-1. Verificar que Mockoon tenga habilitado CORS
-2. Usar una extensión de navegador para deshabilitar CORS temporalmente
+#### Usuarios de Prueba:
+- **Admin (ID: 1)**: `admin@biblioteca.com` / `admin123`
+- **Bibliotecario (ID: 2)**: `bibliotecario@biblioteca.com` / `librarian123`
+- **Usuario (ID: 3)**: `maria@biblioteca.com` / `user123`
 
-## Datos de Prueba
+#### Préstamos de Usuario (Nuevo Endpoint):
+El endpoint `/api/users/:userId/loans` devuelve:
+- 1 préstamo activo (El Señor de los Anillos)
+- 1 préstamo vencido (Don Quijote)
+- 1 préstamo devuelto (Cien años de soledad)
 
-### Usuario Administrador
-- Email: `admin@biblioteca.com`
-- Contraseña: `admin123`
-- Rol: `admin`
+### 7. Solución de Problemas
 
-### Usuario Bibliotecario
-- Email: `bibliotecario@biblioteca.com`
-- Contraseña: `librarian123`
-- Rol: `librarian`
+#### Error 404 en `/api/users/:userId/loans`:
+1. **Reinicia Mockoon** después de importar la configuración
+2. Verifica que el endpoint esté en la carpeta "📋 Gestión de Préstamos"
+3. Asegúrate de que el servidor esté corriendo en el puerto 3001
 
-### Usuario Normal
-- Email: `maria@biblioteca.com`
-- Contraseña: `user123`
-- Rol: `user`
+#### CORS Errors:
+- La configuración incluye headers CORS automáticos
+- Si persisten, verifica que el endpoint OPTIONS esté activo
 
-## Notas Importantes
+#### Datos no se cargan:
+- Verifica que el frontend esté configurado para usar `http://localhost:3001`
+- Revisa la consola del navegador para errores específicos
 
-1. **Tokens JWT**: Los tokens en Mockoon son simulados y no son válidos para verificación real
-2. **Persistencia**: Los datos no se persisten entre reinicios de Mockoon
-3. **Latencia**: Se puede configurar latencia artificial en Mockoon para simular condiciones reales
-4. **Variables**: Se pueden usar variables en Mockoon para hacer las respuestas más dinámicas
+### 8. Estructura de Datos
 
-## Configuración Avanzada
-
-### Variables de Entorno
-Crear un archivo `.env` en la raíz del proyecto:
+#### Formato de Préstamos de Usuario:
+```json
+[
+  {
+    "id": "loan-001",
+    "book": {
+      "id": "book-001",
+      "title": "El Señor de los Anillos",
+      "author": "J.R.R. Tolkien",
+      "isbn": "978-84-450-7628-2"
+    },
+    "status": "active",
+    "loanDate": "2024-01-15T00:00:00.000Z",
+    "dueDate": "2024-02-15T00:00:00.000Z",
+    "returnDate": null
+  }
+]
 ```
-VITE_API_BASE_URL=http://localhost:3001
-```
 
-### Configuración de CORS en Mockoon
-1. Ir a Settings en Mockoon
-2. Habilitar "CORS"
-3. Agregar los orígenes permitidos: `http://localhost:5173`
+### 9. Actualizaciones Recientes
 
-### Configuración de Latencia
-1. En cada endpoint, configurar "Latency" en milisegundos
-2. Recomendado: 100-500ms para simular condiciones reales
+#### ✅ Nuevo Endpoint Agregado:
+- `GET /api/users/:userId/loans` - Para obtener préstamos del usuario específico
+- Incluye datos de ejemplo con diferentes estados
+- Integrado en la carpeta "📋 Gestión de Préstamos"
 
-## Recursos Adicionales
+#### ✅ Configuración Mejorada:
+- Headers CORS automáticos
+- Respuestas estructuradas
+- Datos de ejemplo realistas
 
-- [Documentación oficial de Mockoon](https://mockoon.com/docs/)
-- [Guía de configuración de CORS](https://mockoon.com/docs/latest/cors/)
-- [Variables y templating](https://mockoon.com/docs/latest/templating/) 
+### 10. Próximos Pasos
+
+1. **Reinicia Mockoon** para que reconozca el nuevo endpoint
+2. **Prueba el endpoint** `/api/users/3/loans` directamente
+3. **Verifica la aplicación** - los usuarios normales deberían poder ver sus préstamos
+4. **Reporta cualquier problema** para ajustes adicionales
+
+---
+
+**Nota**: Si el endpoint `/api/users/:userId/loans` sigue dando 404 después de reiniciar Mockoon, el componente MyLoans tiene un fallback que mostrará datos de ejemplo para que puedas probar la funcionalidad. 

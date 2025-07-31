@@ -723,6 +723,42 @@
       "documentation": ""
     },
     {
+      "uuid": "444d56b1-177d-4cc5-b958-2849595da801",
+      "method": "get",
+      "endpoint": "api/users/:userId/loans",
+      "responses": [
+        {
+          "uuid": "53f04a95-491d-4c35-b72d-ad460b233932",
+          "body": "[\n  {\n    \"id\": \"loan-001\",\n    \"book\": {\n      \"id\": \"book-001\",\n      \"title\": \"El Señor de los Anillos\",\n      \"author\": \"J.R.R. Tolkien\",\n      \"isbn\": \"978-84-450-7628-2\"\n    },\n    \"status\": \"active\",\n    \"loanDate\": \"2024-01-15T00:00:00.000Z\",\n    \"dueDate\": \"2024-02-15T00:00:00.000Z\",\n    \"returnDate\": null\n  },\n  {\n    \"id\": \"loan-002\",\n    \"book\": {\n      \"id\": \"book-002\",\n      \"title\": \"Don Quijote de la Mancha\",\n      \"author\": \"Miguel de Cervantes\",\n      \"isbn\": \"978-84-376-0494-7\"\n    },\n    \"status\": \"overdue\",\n    \"loanDate\": \"2024-01-01T00:00:00.000Z\",\n    \"dueDate\": \"2024-01-31T00:00:00.000Z\",\n    \"returnDate\": null\n  },\n  {\n    \"id\": \"loan-003\",\n    \"book\": {\n      \"id\": \"book-003\",\n      \"title\": \"Cien años de soledad\",\n      \"author\": \"Gabriel García Márquez\",\n      \"isbn\": \"978-84-397-2071-7\"\n    },\n    \"status\": \"returned\",\n    \"loanDate\": \"2023-12-01T00:00:00.000Z\",\n    \"dueDate\": \"2023-12-31T00:00:00.000Z\",\n    \"returnDate\": \"2023-12-28T00:00:00.000Z\"\n  }\n]",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Préstamos del usuario",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false,
+          "crudKey": "id",
+          "callbacks": []
+        }
+      ],
+      "type": "http",
+      "responseMode": null,
+      "streamingMode": null,
+      "streamingInterval": 0,
+      "documentation": ""
+    },
+    {
       "uuid": "8490b05a-1b28-4623-b9ef-2d9acd2f99dd",
       "method": "get",
       "endpoint": "api/reports/statistics",
@@ -1096,6 +1132,10 @@
         {
           "type": "route",
           "uuid": "45d7b5a5-065e-4867-a57a-788f54901e25"
+        },
+        {
+          "type": "route",
+          "uuid": "444d56b1-177d-4cc5-b958-2849595da801"
         }
       ]
     },

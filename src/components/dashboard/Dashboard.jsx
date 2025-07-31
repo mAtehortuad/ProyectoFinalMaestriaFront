@@ -234,35 +234,7 @@ const Dashboard = () => {
           </Grid>
         )}
 
-        {isUser() && (
-          <Grid container spacing={3} sx={{ mb: 4, width: '100%' }}>
-            <Grid item xs={12} sm={6} md={4} lg={4}>
-              <StatCard
-                title="Mis Préstamos Activos"
-                value={stats.activeLoans}
-                icon={<BookIcon />}
-                color="primary"
-              />
-            </Grid>
-            <Grid item xs={12} sm={6} md={4} lg={4}>
-              <StatCard
-                title="Libros Disponibles"
-                value={stats.availableBooks}
-                icon={<BookIcon />}
-                color="success"
-              />
-            </Grid>
-            <Grid item xs={12} sm={6} md={4} lg={4}>
-              <StatCard
-                title="Préstamos Vencidos"
-                value={stats.overdueLoans}
-                icon={<NotificationsIcon />}
-                color="error"
-              />
-            </Grid>
-          </Grid>
-        )}
-
+    
         {/* Role-based Content */}
         {isAdmin() && (
           <>
@@ -392,58 +364,31 @@ const Dashboard = () => {
               Panel de Usuario
             </Typography>
             <Grid container spacing={3} sx={{ width: '100%' }}>
-              <Grid item xs={12} sm={6} md={4} lg={3}>
+              <Grid item xs={12} sm={6} md={4} lg={4}>
                 <QuickActionCard
-                  title="Mis Préstamos"
-                  description="Ver mis libros prestados"
+                  title="Ver Libros"
+                  description="Explorar catálogo de libros"
                   icon={<BookIcon />}
                   color="primary"
+                  onClick={() => navigate('/user/books')}
+                />
+              </Grid>
+              <Grid item xs={12} sm={6} md={4} lg={4}>
+                <QuickActionCard
+                  title="Mis Préstamos"
+                  description="Ver mi historial de préstamos"
+                  icon={<TrendingUpIcon />}
+                  color="secondary"
                   onClick={() => navigate('/user/my-loans')}
                 />
               </Grid>
-              <Grid item xs={12} sm={6} md={4} lg={3}>
-                <QuickActionCard
-                  title="Buscar Libros"
-                  description="Buscar libros disponibles"
-                  icon={<SearchIcon />}
-                  color="secondary"
-                  onClick={() => navigate('/books')}
-                />
-              </Grid>
-              <Grid item xs={12} sm={6} md={4} lg={3}>
-                <QuickActionCard
-                  title="Solicitar Préstamo"
-                  description="Solicitar un nuevo préstamo"
-                  icon={<AddIcon />}
-                  color="success"
-                  onClick={() => navigate('/user/request-loan')}
-                />
-              </Grid>
-              <Grid item xs={12} sm={6} md={4} lg={3}>
+              <Grid item xs={12} sm={6} md={4} lg={4}>
                 <QuickActionCard
                   title="Mi Perfil"
-                  description="Ver y editar mi perfil"
+                  description="Editar mi información personal"
                   icon={<PersonIcon />}
                   color="info"
                   onClick={() => navigate('/user/profile')}
-                />
-              </Grid>
-              <Grid item xs={12} sm={6} md={4} lg={3}>
-                <QuickActionCard
-                  title="Historial"
-                  description="Ver mi historial de préstamos"
-                  icon={<TrendingUpIcon />}
-                  color="warning"
-                  onClick={() => navigate('/user/history')}
-                />
-              </Grid>
-              <Grid item xs={12} sm={6} md={4} lg={3}>
-                <QuickActionCard
-                  title="Notificaciones"
-                  description="Ver notificaciones"
-                  icon={<NotificationsIcon />}
-                  color="error"
-                  onClick={() => navigate('/user/notifications')}
                 />
               </Grid>
             </Grid>

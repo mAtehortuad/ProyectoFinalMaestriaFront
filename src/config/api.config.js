@@ -57,7 +57,7 @@ const API_CONFIG = {
     // Préstamos
     LOANS: {
       BASE: '/api/loans',
-      USER_LOANS: '/api/loans/user',
+      USER_LOANS: '/api/users/:userId/loans',
       RETURN: '/api/loans/return',
       EXTEND: '/api/loans/extend',
     },

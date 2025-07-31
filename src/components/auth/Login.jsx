@@ -241,7 +241,7 @@ const Login = () => {
         {/* Footer */}
         <Box sx={{ textAlign: 'center', mt: 3, width: '100%', maxWidth: '400px' }}>
           <Typography variant="body2" color="text.secondary">
-            © 2025 Sistema de Gestión de Biblioteca - Proyecto Final de Maestría
+            © 2025 Sistema de Gestión de Biblioteca 
           </Typography>
         </Box>
       </Box>

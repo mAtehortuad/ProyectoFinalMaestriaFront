@@ -233,21 +233,7 @@ const Login = () => {
                 </Button>
               </Box>
 
-              {/* Demo Credentials */}
-              <Box sx={{ mt: 3, p: 2, bgcolor: 'background.secondary', borderRadius: 2 }}>
-                <Typography variant="subtitle2" color="text.secondary" gutterBottom>
-                  Credenciales de demostración (cualquier contraseña funciona):
-                </Typography>
-                <Typography variant="body2" color="text.secondary" sx={{ mb: 1 }}>
-                  <strong>Admin:</strong> admin@biblioteca.com / (cualquier contraseña)
-                </Typography>
-                <Typography variant="body2" color="text.secondary" sx={{ mb: 1 }}>
-                  <strong>Bibliotecario:</strong> bibliotecario@biblioteca.com / (cualquier contraseña)
-                </Typography>
-                <Typography variant="body2" color="text.secondary">
-                  <strong>Usuario:</strong> usuario@biblioteca.com / (cualquier contraseña)
-                </Typography>
-              </Box>
+            
             </CardContent>
           </Card>
         </Paper>
@@ -255,7 +241,7 @@ const Login = () => {
         {/* Footer */}
         <Box sx={{ textAlign: 'center', mt: 3, width: '100%', maxWidth: '400px' }}>
           <Typography variant="body2" color="text.secondary">
-            © 2024 Sistema de Gestión de Biblioteca - Proyecto Final de Maestría
+            © 2025 Sistema de Gestión de Biblioteca - Proyecto Final de Maestría
           </Typography>
         </Box>
       </Box>

@@ -228,18 +228,18 @@ const Settings = () => {
               Volver al Dashboard
             </Button>
           </Box>
-          <Typography variant="h3" component="h1" gutterBottom sx={{ fontWeight: 600 }}>
+          <Typography variant="h3" component="h1" gutterBottom sx={{ fontWeight: 600, textAlign: 'center' }}>
             Configuración
           </Typography>
-          <Typography variant="h6" color="text.secondary">
+          <Typography variant="h6" color="text.secondary" sx={{ textAlign: 'center' }}>
             Gestiona tu perfil y configuraciones del sistema
           </Typography>
         </Box>
 
-        <Grid container spacing={3}>
+        <Grid container spacing={3} sx={{ justifyContent: 'center' }}>
           {/* Perfil del Usuario */}
           <Grid xs={12} md={6}>
-            <Card>
+            <Card sx={{ height: '100%', minWidth: '68rem' }}>
               <CardContent>
                 <Box sx={{ display: 'flex', alignItems: 'center', mb: 3 }}>
                   <Avatar sx={{ bgcolor: 'primary.light', color: 'primary.main', mr: 2 }}>
@@ -356,7 +356,7 @@ const Settings = () => {
 
           {/* Configuraciones del Sistema */}
           <Grid xs={12} md={6}>
-            <Card>
+            <Card sx={{ height: '100%', minWidth: '68rem' }}>
               <CardContent>
                 <Box sx={{ display: 'flex', alignItems: 'center', mb: 3 }}>
                   <Avatar sx={{ bgcolor: 'secondary.light', color: 'secondary.main', mr: 2 }}>
@@ -483,7 +483,7 @@ const Settings = () => {
 
           {/* Información del Sistema */}
           <Grid xs={12}>
-            <Card>
+            <Card sx={{ height: 'auto', minWidth: '68rem' }}>
               <CardContent>
                 <Typography variant="h6" gutterBottom>
                   Información del Sistema

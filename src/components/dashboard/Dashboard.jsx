@@ -191,7 +191,7 @@ const Dashboard = () => {
       <Container maxWidth={false} sx={{ py: 4, px: 3 }}>
         {/* Welcome Section */}
         <Box sx={{ mb: 4 }}>
-          <Typography variant="h3" component="h2" gutterBottom sx={{ fontWeight: 600 }}>
+          <Typography variant="h3" component="h2" gutterBottom sx={{ fontWeight: 600, textAlign: 'center' }}>
             ¡Bienvenido, {user?.name || 'Usuario'}!
           </Typography>
         </Box>
@@ -267,8 +267,7 @@ const Dashboard = () => {
         {isAdmin() && (
           <>
             
-
-            <Box sx={{ mb: 4 }}>
+            <Box sx={{ mb: 4, mt: 8 }}>
               <Typography variant="h4" component="h3" gutterBottom sx={{ fontWeight: 600 }}>
                 Panel de Administración
               </Typography>

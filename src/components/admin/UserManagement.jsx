@@ -332,16 +332,16 @@ const UserManagement = () => {
               Volver al Dashboard
             </Button>
           </Box>
-          <Typography variant="h3" component="h1" gutterBottom sx={{ fontWeight: 600 }}>
+          <Typography variant="h3" component="h1" gutterBottom sx={{ fontWeight: 600, textAlign: 'center' }}>
             Gestión de Usuarios
           </Typography>
-          <Typography variant="h6" color="text.secondary">
+          <Typography variant="h6" color="text.secondary" sx={{ textAlign: 'center' }}>
             Administra los usuarios del sistema de biblioteca
           </Typography>
         </Box>
 
         {/* Estadísticas */}
-        <Grid container spacing={3} sx={{ mb: 4 }}>
+        <Grid container spacing={3} sx={{ mb: 4, justifyContent: 'center' }}>
           <Grid xs={12} sm={6} md={3}>
             <Card>
               <CardContent>
@@ -421,7 +421,7 @@ const UserManagement = () => {
         </Grid>
 
         {/* Barra de búsqueda */}
-        <Paper sx={{ p: 2, mb: 3 }}>
+        <Paper sx={{ p: 2, mb: 3, justifyContent: 'center' }}>
           <Grid container spacing={2} alignItems="center">
             <Grid xs={12} md={4}>
               <TextField

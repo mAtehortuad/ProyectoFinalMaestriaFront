@@ -8,6 +8,8 @@
 3. Seleccionar el archivo `mockoon-config.json`
 4. La configuración se importará automáticamente
 
+Cambiar los paths necesarios de get a post, por alguna razon no quiere hacerlo con el archivo de configuracion 
+
 ### 2. **Iniciar el Servidor**
 1. Hacer clic en el botón "Start" (▶️) en Mockoon
 2. El servidor se iniciará en `http://localhost:3001`

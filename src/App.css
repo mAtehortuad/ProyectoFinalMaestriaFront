@@ -1,42 +1,274 @@
+/* Estilos principales para el Sistema de Gestión de Biblioteca */
+/* Proyecto Final de Maestría */
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: 'Roboto', 'Helvetica', 'Arial', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: #FDF5E6;
+}
+
 #root {
-  max-width: 1280px;
+  min-height: 100vh;
+  width: 100%;
+}
+
+.App {
+  min-height: 100vh;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Estilos para scrollbar personalizada */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #8B4513;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #654321;
+}
+
+/* Estilos para animaciones de transición */
+.fade-enter {
+  opacity: 0;
+}
+
+.fade-enter-active {
+  opacity: 1;
+  transition: opacity 300ms ease-in;
+}
+
+.fade-exit {
+  opacity: 1;
+}
+
+.fade-exit-active {
+  opacity: 0;
+  transition: opacity 300ms ease-out;
+}
+
+/* Estilos para cards con hover */
+.hover-card {
+  transition: all 0.3s ease;
+}
+
+.hover-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 25px rgba(139, 69, 19, 0.15);
+}
+
+/* Estilos para botones con gradiente */
+.gradient-button {
+  background: linear-gradient(45deg, #8B4513, #D2691E);
+  border: none;
+  color: white;
+  transition: all 0.3s ease;
+}
+
+.gradient-button:hover {
+  background: linear-gradient(45deg, #654321, #8B4513);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(139, 69, 19, 0.3);
+}
+
+/* Estilos para texto con gradiente */
+.gradient-text {
+  background: linear-gradient(45deg, #8B4513, #D2691E);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-weight: 600;
+}
+
+/* Estilos para loading spinner */
+.loading-spinner {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 200px;
+}
+
+/* Estilos para formularios */
+.form-container {
+  max-width: 500px;
   margin: 0 auto;
   padding: 2rem;
-  text-align: center;
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
+/* Estilos para centrado de login */
+.login-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  width: 100%;
 }
 
-@keyframes logo-spin {
+.login-card {
+  width: 100%;
+  max-width: 450px;
+  margin: 0 auto;
+}
+
+/* Estilos para alertas */
+.alert-container {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 9999;
+  max-width: 400px;
+}
+
+/* Estilos para navegación */
+.nav-link {
+  text-decoration: none;
+  color: inherit;
+  transition: color 0.3s ease;
+}
+
+.nav-link:hover {
+  color: #D2691E;
+}
+
+/* Estilos para iconos */
+.icon-primary {
+  color: #8B4513;
+}
+
+.icon-secondary {
+  color: #D2691E;
+}
+
+/* Estilos para badges y chips */
+.status-badge {
+  border-radius: 16px;
+  font-weight: 500;
+  text-transform: uppercase;
+  font-size: 0.75rem;
+  letter-spacing: 0.5px;
+}
+
+/* Estilos para tablas */
+.data-table {
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(139, 69, 19, 0.1);
+}
+
+.data-table th {
+  background-color: #8B4513;
+  color: white;
+  font-weight: 600;
+}
+
+/* Estilos para modales */
+.modal-overlay {
+  background-color: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(4px);
+}
+
+/* Estilos para tooltips */
+.custom-tooltip {
+  background-color: #2F1B14;
+  color: white;
+  border-radius: 6px;
+  padding: 8px 12px;
+  font-size: 0.875rem;
+}
+
+/* Estilos para responsive */
+@media (max-width: 768px) {
+  .form-container {
+    padding: 1rem;
+  }
+  
+  .alert-container {
+    left: 20px;
+    right: 20px;
+    max-width: none;
+  }
+}
+
+/* Estilos para impresión */
+@media print {
+  .no-print {
+    display: none !important;
+  }
+  
+  .print-only {
+    display: block !important;
+  }
+}
+
+/* Estilos para modo oscuro (futuro) */
+@media (prefers-color-scheme: dark) {
+  /* Aquí se pueden agregar estilos para modo oscuro si se implementa */
+}
+
+/* Estilos para accesibilidad */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Estilos para focus visible */
+.focus-visible {
+  outline: 2px solid #D2691E;
+  outline-offset: 2px;
+}
+
+/* Estilos para animaciones de entrada */
+.slide-in {
+  animation: slideIn 0.3s ease-out;
+}
+
+@keyframes slideIn {
   from {
-    transform: rotate(0deg);
+    opacity: 0;
+    transform: translateY(20px);
   }
   to {
-    transform: rotate(360deg);
+    opacity: 1;
+    transform: translateY(0);
   }
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
+/* Estilos para animaciones de salida */
+.slide-out {
+  animation: slideOut 0.3s ease-in;
+}
+
+@keyframes slideOut {
+  from {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(-20px);
   }
 }
 
-.card {
-  padding: 2em;
-}
-
-.read-the-docs {
-  color: #888;
-}

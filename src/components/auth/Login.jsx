@@ -236,16 +236,16 @@ const Login = () => {
               {/* Demo Credentials */}
               <Box sx={{ mt: 3, p: 2, bgcolor: 'background.secondary', borderRadius: 2 }}>
                 <Typography variant="subtitle2" color="text.secondary" gutterBottom>
-                  Credenciales de demostración:
+                  Credenciales de demostración (cualquier contraseña funciona):
                 </Typography>
                 <Typography variant="body2" color="text.secondary" sx={{ mb: 1 }}>
-                  <strong>Admin:</strong> admin@biblioteca.com / admin123
+                  <strong>Admin:</strong> admin@biblioteca.com / (cualquier contraseña)
                 </Typography>
                 <Typography variant="body2" color="text.secondary" sx={{ mb: 1 }}>
-                  <strong>Usuario:</strong> usuario@biblioteca.com / user123
+                  <strong>Bibliotecario:</strong> bibliotecario@biblioteca.com / (cualquier contraseña)
                 </Typography>
                 <Typography variant="body2" color="text.secondary">
-                  <strong>Bibliotecario:</strong> bibliotecario@biblioteca.com / lib123
+                  <strong>Usuario:</strong> usuario@biblioteca.com / (cualquier contraseña)
                 </Typography>
               </Box>
             </CardContent>

@@ -18,43 +18,43 @@ const API_CONFIG = {
   ENDPOINTS: {
     // Autenticación
     AUTH: {
-      LOGIN: '/auth/login',
-      LOGOUT: '/auth/logout',
-      REFRESH: '/auth/refresh',
-      VERIFY: '/auth/verify',
+      LOGIN: '/api/login',
+      LOGOUT: '/api/logout',
+      REFRESH: '/api/refresh',
+      VERIFY: '/api/verify',
     },
     
     // Usuarios
     USERS: {
-      BASE: '/users',
-      PROFILE: '/users/profile',
-      UPDATE_PROFILE: '/users/profile/update',
+      BASE: '/api/users',
+      PROFILE: '/api/users/profile',
+      UPDATE_PROFILE: '/api/users/profile/update',
     },
     
     // Libros
     BOOKS: {
-      BASE: '/books',
-      SEARCH: '/books/search',
-      BY_CATEGORY: '/books/category',
-      BY_STATUS: '/books/status',
+      BASE: '/api/libros',
+      SEARCH: '/api/libros/search',
+      BY_CATEGORY: '/api/libros/category',
+      BY_STATUS: '/api/libros/status',
     },
     
     // Préstamos
     LOANS: {
-      BASE: '/loans',
-      USER_LOANS: '/loans/user',
-      RETURN: '/loans/return',
-      EXTEND: '/loans/extend',
+      BASE: '/api/loans',
+      USER_LOANS: '/api/loans/user',
+      RETURN: '/api/loans/return',
+      EXTEND: '/api/loans/extend',
     },
     
     // Categorías
     CATEGORIES: {
-      BASE: '/categories',
+      BASE: '/api/categories',
     },
     
     // Estados de libros
     BOOK_STATUS: {
-      BASE: '/book-status',
+      BASE: '/api/book-status',
     },
   },
   

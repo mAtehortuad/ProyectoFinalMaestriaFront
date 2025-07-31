@@ -1,37 +1,57 @@
-# Instrucciones para Configurar Mockoon
+# 📚 Instrucciones para Configurar Mockoon - Biblioteca API
 
 ## 📋 Configuración del Servidor Mock
 
 ### 1. **Importar Configuración**
+
+#### Opción A: Configuración Organizada (Recomendada) 🆕
+1. Abrir Mockoon
+2. Hacer clic en "Import/Export" → "Import"
+3. Seleccionar el archivo `mockoon-config-organized.json`
+4. La configuración se importará con carpetas organizadas por funcionalidad
+
+#### Opción B: Configuración Original
 1. Abrir Mockoon
 2. Hacer clic en "Import/Export" → "Import"
 3. Seleccionar el archivo `mockoon-config.json`
-4. La configuración se importará automáticamente
+4. La configuración se importará con todos los endpoints en la raíz
 
-Cambiar los paths necesarios de get a post, por alguna razon no quiere hacerlo con el archivo de configuracion 
+**Nota**: Cambiar los paths necesarios de get a post manualmente, por alguna razón no se aplica automáticamente desde el archivo de configuración 
 
 ### 2. **Iniciar el Servidor**
 1. Hacer clic en el botón "Start" (▶️) en Mockoon
 2. El servidor se iniciará en `http://localhost:3001`
 
 ### 3. **Verificar Endpoints**
-Los siguientes endpoints estarán disponibles:
+
+#### 📁 **Estructura Organizada (Nueva Configuración)**
+- **🔐 Autenticación**: Login y logout
+- **📚 Gestión de Libros**: CRUD completo + búsqueda con parámetros
+- **👥 Gestión de Usuarios**: CRUD completo + búsqueda con parámetros  
+- **📖 Gestión de Préstamos**: Préstamos de usuario y extensión
 
 #### 🔐 **Autenticación**
 - `POST /api/login` - Login con 3 respuestas diferentes:
   - **Login Admin**: admin@biblioteca.com (cualquier contraseña)
   - **Login Bibliotecario**: bibliotecario@biblioteca.com (cualquier contraseña)
   - **Login Usuario**: usuario@biblioteca.com (cualquier contraseña)
+- `POST /api/logout` - Logout del sistema
 
 #### 📚 **Libros**
-- `GET /api/libros` - Listar todos los libros
+- `GET /api/libros` - Listar todos los libros (con paginación)
 - `POST /api/libros` - Crear nuevo libro
+- `PUT /api/libros/:id` - Actualizar libro
+- `DELETE /api/libros/:id` - Eliminar libro
+- `GET /api/libros` - Buscar libros con parámetros (q, category, status, author, isbn, page, limit)
 
 #### 👥 **Usuarios**
-- `GET /api/users` - Listar usuarios
+- `GET /api/users` - Listar usuarios (con paginación)
+- `POST /api/users` - Crear nuevo usuario
+- `GET /api/users` - Buscar usuarios con parámetros (q, role, status, email, page, limit)
 
 #### 📖 **Préstamos**
-- `GET /api/loans` - Listar préstamos
+- `GET /api/loans/user` - Préstamos del usuario actual
+- `GET /api/loans/extend/:id` - Extender un préstamo
 
 #### 🏷️ **Categorías**
 - `GET /api/categories` - Listar categorías

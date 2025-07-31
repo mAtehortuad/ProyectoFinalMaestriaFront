@@ -6,6 +6,11 @@ import { AuthProvider } from './contexts/AuthContext';
 import theme from './theme/theme';
 import Login from './components/auth/Login';
 import Dashboard from './components/dashboard/Dashboard';
+import UserManagement from './components/admin/UserManagement';
+import BookManagement from './components/admin/BookManagement';
+import BookSearch from './components/search/BookSearch';
+import UserSearch from './components/search/UserSearch';
+import MyLoans from './components/user/MyLoans';
 import ProtectedRoute from './components/auth/ProtectedRoute';
 import './App.css';
 
@@ -38,10 +43,62 @@ function App() {
               
               {/* Rutas de administrador */}
               <Route
+                path="/admin/users"
+                element={
+                  <ProtectedRoute requiredRole="admin">
+                    <UserManagement />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/admin/books"
+                element={
+                  <ProtectedRoute requiredRole="admin">
+                    <BookManagement />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
                 path="/admin/*"
                 element={
                   <ProtectedRoute requiredRole="admin">
                     <Dashboard />
+                  </ProtectedRoute>
+                }
+              />
+
+              {/* Rutas de libros */}
+              <Route
+                path="/books"
+                element={
+                  <ProtectedRoute>
+                    <BookSearch />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/admin/books"
+                element={
+                  <ProtectedRoute requiredRole="admin">
+                    <BookManagement />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/search/users"
+                element={
+                  <ProtectedRoute requiredRole={['admin', 'librarian']}>
+                    <UserSearch />
+                  </ProtectedRoute>
+                }
+              />
+
+              {/* Rutas de usuario */}
+              <Route
+                path="/user/my-loans"
+                element={
+                  <ProtectedRoute requiredRole="user">
+                    <MyLoans />
                   </ProtectedRoute>
                 }
               />

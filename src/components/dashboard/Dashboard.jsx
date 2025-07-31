@@ -199,41 +199,109 @@ const Dashboard = () => {
           </Typography>
         </Box>
 
-        {/* Statistics Grid */}
-        <Grid container spacing={3} sx={{ mb: 4, width: '100%' }}>
-          <Grid item xs={12} sm={6} md={3} lg={3}>
-            <StatCard
-              title="Total de Libros"
-              value={stats.totalBooks}
-              icon={<BookIcon />}
-              color="primary"
-            />
+        {/* Statistics Grid - Role-based */}
+        {isAdmin() && (
+          <Grid container spacing={3} sx={{ mb: 4, width: '100%' }}>
+            <Grid item xs={12} sm={6} md={3} lg={3}>
+              <StatCard
+                title="Total de Libros"
+                value={stats.totalBooks}
+                icon={<BookIcon />}
+                color="primary"
+              />
+            </Grid>
+            <Grid item xs={12} sm={6} md={3} lg={3}>
+              <StatCard
+                title="Libros Disponibles"
+                value={stats.availableBooks}
+                icon={<BookIcon />}
+                color="success"
+              />
+            </Grid>
+            <Grid item xs={12} sm={6} md={3} lg={3}>
+              <StatCard
+                title="Total de Usuarios"
+                value={stats.totalUsers}
+                icon={<PersonIcon />}
+                color="info"
+              />
+            </Grid>
+            <Grid item xs={12} sm={6} md={3} lg={3}>
+              <StatCard
+                title="Préstamos Activos"
+                value={stats.activeLoans}
+                icon={<TrendingUpIcon />}
+                color="warning"
+              />
+            </Grid>
           </Grid>
-          <Grid item xs={12} sm={6} md={3} lg={3}>
-            <StatCard
-              title="Libros Disponibles"
-              value={stats.availableBooks}
-              icon={<BookIcon />}
-              color="success"
-            />
+        )}
+
+        {isLibrarian() && (
+          <Grid container spacing={3} sx={{ mb: 4, width: '100%' }}>
+            <Grid item xs={12} sm={6} md={3} lg={3}>
+              <StatCard
+                title="Libros Disponibles"
+                value={stats.availableBooks}
+                icon={<BookIcon />}
+                color="success"
+              />
+            </Grid>
+            <Grid item xs={12} sm={6} md={3} lg={3}>
+              <StatCard
+                title="Préstamos Activos"
+                value={stats.activeLoans}
+                icon={<TrendingUpIcon />}
+                color="info"
+              />
+            </Grid>
+            <Grid item xs={12} sm={6} md={3} lg={3}>
+              <StatCard
+                title="Préstamos Vencidos"
+                value={stats.overdueLoans}
+                icon={<NotificationsIcon />}
+                color="error"
+              />
+            </Grid>
+            <Grid item xs={12} sm={6} md={3} lg={3}>
+              <StatCard
+                title="Total de Usuarios"
+                value={stats.totalUsers}
+                icon={<PersonIcon />}
+                color="primary"
+              />
+            </Grid>
           </Grid>
-          <Grid item xs={12} sm={6} md={3} lg={3}>
-            <StatCard
-              title="Préstamos Activos"
-              value={stats.activeLoans}
-              icon={<TrendingUpIcon />}
-              color="info"
-            />
+        )}
+
+        {isUser() && (
+          <Grid container spacing={3} sx={{ mb: 4, width: '100%' }}>
+            <Grid item xs={12} sm={6} md={4} lg={4}>
+              <StatCard
+                title="Mis Préstamos Activos"
+                value={stats.activeLoans}
+                icon={<BookIcon />}
+                color="primary"
+              />
+            </Grid>
+            <Grid item xs={12} sm={6} md={4} lg={4}>
+              <StatCard
+                title="Libros Disponibles"
+                value={stats.availableBooks}
+                icon={<BookIcon />}
+                color="success"
+              />
+            </Grid>
+            <Grid item xs={12} sm={6} md={4} lg={4}>
+              <StatCard
+                title="Préstamos Vencidos"
+                value={stats.overdueLoans}
+                icon={<NotificationsIcon />}
+                color="error"
+              />
+            </Grid>
           </Grid>
-          <Grid item xs={12} sm={6} md={3} lg={3}>
-            <StatCard
-              title="Préstamos Vencidos"
-              value={stats.overdueLoans}
-              icon={<NotificationsIcon />}
-              color="error"
-            />
-          </Grid>
-        </Grid>
+        )}
 
         {/* Role-based Content */}
         {isAdmin() && (
@@ -258,6 +326,15 @@ const Dashboard = () => {
                   icon={<BookIcon />}
                   color="secondary"
                   onClick={() => navigate('/admin/books')}
+                />
+              </Grid>
+              <Grid item xs={12} sm={6} md={4} lg={3}>
+                <QuickActionCard
+                  title="Buscar Libros"
+                  description="Buscar en el inventario"
+                  icon={<SearchIcon />}
+                  color="info"
+                  onClick={() => navigate('/books')}
                 />
               </Grid>
               <Grid item xs={12} sm={6} md={4} lg={3}>
@@ -321,7 +398,7 @@ const Dashboard = () => {
                   description="Buscar en el inventario"
                   icon={<SearchIcon />}
                   color="secondary"
-                  onClick={() => navigate('/librarian/search')}
+                  onClick={() => navigate('/books')}
                 />
               </Grid>
               <Grid item xs={12} sm={6} md={4} lg={3}>
@@ -335,11 +412,11 @@ const Dashboard = () => {
               </Grid>
               <Grid item xs={12} sm={6} md={4} lg={3}>
                 <QuickActionCard
-                  title="Usuarios"
-                  description="Gestionar usuarios"
+                  title="Buscar Usuarios"
+                  description="Buscar y gestionar usuarios"
                   icon={<PersonIcon />}
                   color="info"
-                  onClick={() => navigate('/librarian/users')}
+                  onClick={() => navigate('/search/users')}
                 />
               </Grid>
               <Grid item xs={12} sm={6} md={4} lg={3}>
@@ -385,7 +462,7 @@ const Dashboard = () => {
                   description="Buscar libros disponibles"
                   icon={<SearchIcon />}
                   color="secondary"
-                  onClick={() => navigate('/user/search')}
+                  onClick={() => navigate('/books')}
                 />
               </Grid>
               <Grid item xs={12} sm={6} md={4} lg={3}>

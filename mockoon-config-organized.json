@@ -1,0 +1,638 @@
+{
+  "name": "Biblioteca API - Organizada",
+  "port": 3001,
+  "routes": [
+    {
+      "uuid": "4a34a616-a353-465b-be2f-f2d0991d2855",
+      "documentation": "Endpoint de login para autenticación",
+      "method": "post",
+      "endpoint": "api/login",
+      "responses": [
+        {
+          "uuid": "5765b357-089b-4bfe-88b5-74788195cdf3",
+          "body": "{\n  \"success\": true,\n  \"message\": \"Login exitoso\",\n  \"token\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiIxIiwicm9sZSI6ImFkbWluIiwiaWF0IjoxNjM5NzI5NjAwLCJleHAiOjE2Mzk4MTYwMDB9.example\",\n  \"refreshToken\": \"refresh_token_example\",\n  \"user\": {\n    \"id\": 1,\n    \"name\": \"Administrador\",\n    \"email\": \"admin@biblioteca.com\",\n    \"role\": \"admin\",\n    \"createdAt\": \"2024-01-01T00:00:00.000Z\"\n  }\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Login Admin",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false,
+          "crudKey": "id",
+          "callbacks": []
+        },
+        {
+          "uuid": "c5bc3967-f4fd-40e4-954a-4646c10ef19e",
+          "body": "{\n  \"success\": true,\n  \"message\": \"Login exitoso\",\n  \"token\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiIyIiwicm9sZSI6ImxpYnJhcmlhbiIsImlhdCI6MTYzOTcyOTYwMCwiZXhwIjoxNjM5ODE2MDAwfS5leGFtcGxl\",\n  \"refreshToken\": \"refresh_token_librarian\",\n  \"user\": {\n    \"id\": 2,\n    \"name\": \"Bibliotecario\",\n    \"email\": \"bibliotecario@biblioteca.com\",\n    \"role\": \"librarian\",\n    \"createdAt\": \"2024-01-02T00:00:00.000Z\"\n  }\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Login Bibliotecario",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [
+            {
+              "target": "body",
+              "modifier": "email",
+              "value": "bibliotecario@biblioteca.com",
+              "invert": false,
+              "operator": "equals"
+            }
+          ],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false,
+          "crudKey": "id",
+          "callbacks": []
+        },
+        {
+          "uuid": "bcd6576f-4553-4ca9-add1-ec5313d2594d",
+          "body": "{\n  \"success\": true,\n  \"message\": \"Login exitoso\",\n  \"token\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiIzIiwicm9sZSI6InVzZXIiLCJpYXQiOjE2Mzk3Mjk2MDAsImV4cCI6MTYzOTgxNjAwMH0uZXhhbXBsZQ==\",\n  \"refreshToken\": \"refresh_token_user\",\n  \"user\": {\n    \"id\": 3,\n    \"name\": \"Usuario\",\n    \"email\": \"usuario@biblioteca.com\",\n    \"role\": \"user\",\n    \"createdAt\": \"2024-01-03T00:00:00.000Z\"\n  }\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Login Usuario",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [
+            {
+              "target": "body",
+              "modifier": "email",
+              "value": "usuario@biblioteca.com",
+              "invert": false,
+              "operator": "equals"
+            }
+          ],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false,
+          "crudKey": "id",
+          "callbacks": []
+        }
+      ],
+      "type": "http",
+      "responseMode": null,
+      "streamingMode": null,
+      "streamingInterval": 0
+    },
+    {
+      "uuid": "8812eedb-6539-47e7-b3e0-1f2886988157",
+      "documentation": "Verificar token de autenticación",
+      "method": "post",
+      "endpoint": "api/logout",
+      "responses": [
+        {
+          "uuid": "906987c2-5c4e-41cb-8383-1b08a3518cfa",
+          "body": "{\n  \"success\": true,\n  \"message\": \"Logout exitoso\"\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Logout exitoso",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false,
+          "crudKey": "id",
+          "callbacks": []
+        }
+      ],
+      "type": "http",
+      "responseMode": null,
+      "streamingMode": null,
+      "streamingInterval": 0
+    },
+    {
+      "uuid": "1f30bfe1-bf4c-463c-9e25-bccb97113915",
+      "documentation": "Listar todos los libros",
+      "method": "get",
+      "endpoint": "api/libros",
+      "responses": [
+        {
+          "uuid": "000e0753-e784-40d7-8d42-180bb93c65b3",
+          "body": "{\n  \"success\": true,\n  \"data\": [\n    {\n      \"id\": 1,\n      \"title\": \"El Señor de los Anillos\",\n      \"author\": \"J.R.R. Tolkien\",\n      \"isbn\": \"978-84-450-7054-7\",\n      \"category\": 1,\n      \"status\": \"available\",\n      \"quantity\": 3,\n      \"description\": \"Una épica historia de fantasía que sigue las aventuras de Frodo Bolsón y la Comunidad del Anillo.\",\n      \"publicationYear\": \"1954\",\n      \"publisher\": \"Minotauro\",\n      \"createdAt\": \"2024-01-01T00:00:00.000Z\"\n    },\n    {\n      \"id\": 2,\n      \"title\": \"1984\",\n      \"author\": \"George Orwell\",\n      \"isbn\": \"978-84-397-2077-5\",\n      \"category\": 3,\n      \"status\": \"borrowed\",\n      \"quantity\": 1,\n      \"description\": \"Una distopía que describe una sociedad totalitaria vigilada por el Gran Hermano.\",\n      \"publicationYear\": \"1949\",\n      \"publisher\": \"Debolsillo\",\n      \"createdAt\": \"2024-01-02T00:00:00.000Z\"\n    },\n    {\n      \"id\": 3,\n      \"title\": \"Cien años de soledad\",\n      \"author\": \"Gabriel García Márquez\",\n      \"isbn\": \"978-84-397-2078-2\",\n      \"category\": 2,\n      \"status\": \"available\",\n      \"quantity\": 2,\n      \"description\": \"La historia de la familia Buendía a lo largo de siete generaciones en el pueblo ficticio de Macondo.\",\n      \"publicationYear\": \"1967\",\n      \"publisher\": \"Debolsillo\",\n      \"createdAt\": \"2024-01-03T00:00:00.000Z\"\n    }\n  ],\n  \"total\": 3,\n  \"page\": 1,\n  \"limit\": 12,\n  \"totalPages\": 1\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Lista de libros",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false,
+          "crudKey": "id",
+          "callbacks": []
+        }
+      ],
+      "type": "http",
+      "responseMode": null,
+      "streamingMode": null,
+      "streamingInterval": 0
+    },
+    {
+      "uuid": "d7bfe5c6-affa-42f1-89f2-fc538ca2a4f9",
+      "documentation": "Crear nuevo libro",
+      "method": "post",
+      "endpoint": "api/libros",
+      "responses": [
+        {
+          "uuid": "55a3d030-c6b8-40a9-9e2e-8459762d8893",
+          "body": "{\n  \"success\": true,\n  \"message\": \"Libro creado exitosamente\",\n  \"data\": {\n    \"id\": 4,\n    \"title\": \"Nuevo Libro\",\n    \"author\": \"Autor Nuevo\",\n    \"isbn\": \"978-84-450-7055-4\",\n    \"category\": 1,\n    \"status\": \"available\",\n    \"quantity\": 1,\n    \"description\": \"Descripción del nuevo libro\",\n    \"publicationYear\": \"2024\",\n    \"publisher\": \"Editorial Nueva\",\n    \"createdAt\": \"2024-01-15T00:00:00.000Z\"\n  }\n}",
+          "latency": 0,
+          "statusCode": 201,
+          "label": "Libro creado",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false,
+          "crudKey": "id",
+          "callbacks": []
+        }
+      ],
+      "type": "http",
+      "responseMode": null,
+      "streamingMode": null,
+      "streamingInterval": 0
+    },
+    {
+      "uuid": "87f274a2-9b86-403d-b896-356060db949a",
+      "documentation": "Actualizar libro",
+      "method": "put",
+      "endpoint": "api/libros/:id",
+      "responses": [
+        {
+          "uuid": "8bded362-0c5a-4503-bea9-abe756453730",
+          "body": "{\n  \"success\": true,\n  \"message\": \"Libro actualizado exitosamente\",\n  \"data\": {\n    \"id\": 1,\n    \"title\": \"El Señor de los Anillos - Edición Actualizada\",\n    \"author\": \"J.R.R. Tolkien\",\n    \"isbn\": \"978-84-450-7054-7\",\n    \"category\": 1,\n    \"status\": \"available\",\n    \"quantity\": 5,\n    \"description\": \"Una épica historia de fantasía actualizada\",\n    \"publicationYear\": \"1954\",\n    \"publisher\": \"Minotauro\",\n    \"updatedAt\": \"2024-01-15T00:00:00.000Z\"\n  }\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Libro actualizado",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false,
+          "crudKey": "id",
+          "callbacks": []
+        }
+      ],
+      "type": "http",
+      "responseMode": null,
+      "streamingMode": null,
+      "streamingInterval": 0
+    },
+    {
+      "uuid": "8ff765a6-e4df-4907-b3b8-b70c16f22ffe",
+      "documentation": "Eliminar libro",
+      "method": "delete",
+      "endpoint": "api/libros/:id",
+      "responses": [
+        {
+          "uuid": "a8aee4ed-b43e-47fb-9a6f-ad6c0cab475b",
+          "body": "{\n  \"success\": true,\n  \"message\": \"Libro eliminado exitosamente\"\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Libro eliminado",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false,
+          "crudKey": "id",
+          "callbacks": []
+        }
+      ],
+      "type": "http",
+      "responseMode": null,
+      "streamingMode": null,
+      "streamingInterval": 0
+    },
+    {
+      "uuid": "331410c7-acdc-43fd-90f4-158d2630a74c",
+      "documentation": "Listar usuarios",
+      "method": "get",
+      "endpoint": "api/users",
+      "responses": [
+        {
+          "uuid": "f0d32c07-7735-4393-9093-cf0da689fa4a",
+          "body": "{\n  \"success\": true,\n  \"data\": [\n    {\n      \"id\": 1,\n      \"name\": \"Administrador\",\n      \"email\": \"admin@biblioteca.com\",\n      \"role\": \"admin\",\n      \"status\": \"active\",\n      \"createdAt\": \"2024-01-01T00:00:00.000Z\",\n      \"lastLogin\": \"2024-01-15T10:30:00.000Z\"\n    },\n    {\n      \"id\": 2,\n      \"name\": \"Bibliotecario\",\n      \"email\": \"bibliotecario@biblioteca.com\",\n      \"role\": \"librarian\",\n      \"status\": \"active\",\n      \"createdAt\": \"2024-01-02T00:00:00.000Z\",\n      \"lastLogin\": \"2024-01-15T09:15:00.000Z\"\n    },\n    {\n      \"id\": 3,\n      \"name\": \"María García\",\n      \"email\": \"maria@biblioteca.com\",\n      \"role\": \"user\",\n      \"status\": \"active\",\n      \"createdAt\": \"2024-01-04T00:00:00.000Z\",\n      \"lastLogin\": \"2024-01-15T14:45:00.000Z\"\n    },\n    {\n      \"id\": 4,\n      \"name\": \"Juan Pérez\",\n      \"email\": \"juan@biblioteca.com\",\n      \"role\": \"user\",\n      \"status\": \"active\",\n      \"createdAt\": \"2024-01-05T00:00:00.000Z\",\n      \"lastLogin\": \"2024-01-15T16:20:00.000Z\"\n    },\n    {\n      \"id\": 5,\n      \"name\": \"Ana López\",\n      \"email\": \"ana@biblioteca.com\",\n      \"role\": \"user\",\n      \"status\": \"inactive\",\n      \"createdAt\": \"2024-01-06T00:00:00.000Z\",\n      \"lastLogin\": \"2024-01-10T11:30:00.000Z\"\n    }\n  ],\n  \"total\": 5,\n  \"page\": 1,\n  \"limit\": 12,\n  \"totalPages\": 1\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Lista de usuarios",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false,
+          "crudKey": "id",
+          "callbacks": []
+        }
+      ],
+      "type": "http",
+      "responseMode": null,
+      "streamingMode": null,
+      "streamingInterval": 0
+    },
+    {
+      "uuid": "2d85ab07-47da-4d02-b0bb-f510b662a8c2",
+      "documentation": "Crear nuevo usuario",
+      "method": "post",
+      "endpoint": "api/users",
+      "responses": [
+        {
+          "uuid": "9b911745-a38e-4f83-80c9-2524a4d3385c",
+          "body": "{\n  \"success\": true,\n  \"message\": \"Usuario creado exitosamente\",\n  \"data\": {\n    \"id\": 6,\n    \"name\": \"Nuevo Usuario\",\n    \"email\": \"nuevo@biblioteca.com\",\n    \"role\": \"user\",\n    \"status\": \"active\",\n    \"createdAt\": \"2024-01-15T00:00:00.000Z\"\n  }\n}",
+          "latency": 0,
+          "statusCode": 201,
+          "label": "Usuario creado",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false,
+          "crudKey": "id",
+          "callbacks": []
+        }
+      ],
+      "type": "http",
+      "responseMode": null,
+      "streamingMode": null,
+      "streamingInterval": 0
+    },
+    {
+      "uuid": "7f3fcd42-ba1c-4046-a6be-b6efb22fbe33",
+      "documentation": "Buscar libros con parámetros",
+      "method": "get",
+      "endpoint": "api/libros",
+      "responses": [
+        {
+          "uuid": "08992070-e17e-4b32-9071-63a77e6ee044",
+          "body": "{\n  \"success\": true,\n  \"data\": [\n    {\n      \"id\": 1,\n      \"title\": \"El Señor de los Anillos\",\n      \"author\": \"J.R.R. Tolkien\",\n      \"isbn\": \"978-84-450-7054-7\",\n      \"category\": 1,\n      \"status\": \"available\",\n      \"quantity\": 3,\n      \"description\": \"Una épica historia de fantasía que sigue las aventuras de Frodo Bolsón y la Comunidad del Anillo.\",\n      \"publicationYear\": \"1954\",\n      \"publisher\": \"Minotauro\",\n      \"createdAt\": \"2024-01-01T00:00:00.000Z\"\n    },\n    {\n      \"id\": 2,\n      \"title\": \"1984\",\n      \"author\": \"George Orwell\",\n      \"isbn\": \"978-84-397-2077-5\",\n      \"category\": 3,\n      \"status\": \"borrowed\",\n      \"quantity\": 1,\n      \"description\": \"Una distopía que describe una sociedad totalitaria vigilada por el Gran Hermano.\",\n      \"publicationYear\": \"1949\",\n      \"publisher\": \"Debolsillo\",\n      \"createdAt\": \"2024-01-02T00:00:00.000Z\"\n    },\n    {\n      \"id\": 3,\n      \"title\": \"Cien años de soledad\",\n      \"author\": \"Gabriel García Márquez\",\n      \"isbn\": \"978-84-397-2078-2\",\n      \"category\": 2,\n      \"status\": \"available\",\n      \"quantity\": 2,\n      \"description\": \"La historia de la familia Buendía a lo largo de siete generaciones en el pueblo ficticio de Macondo.\",\n      \"publicationYear\": \"1967\",\n      \"publisher\": \"Debolsillo\",\n      \"createdAt\": \"2024-01-03T00:00:00.000Z\"\n    }\n  ],\n  \"total\": 3,\n  \"page\": 1,\n  \"limit\": 12,\n  \"totalPages\": 1\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Resultados de búsqueda",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [
+            {
+              "target": "params",
+              "modifier": "nombre",
+              "value": "El Señor de los Anillos",
+              "invert": false,
+              "operator": "equals"
+            }
+          ],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false,
+          "crudKey": "id",
+          "callbacks": []
+        }
+      ],
+      "type": "http",
+      "responseMode": null,
+      "streamingMode": null,
+      "streamingInterval": 0
+    },
+    {
+      "uuid": "27b2806d-c904-4f97-8339-dff3b1c2d99e",
+      "documentation": "Buscar usuarios con parámetros",
+      "method": "get",
+      "endpoint": "api/users",
+      "responses": [
+        {
+          "uuid": "88d45147-9a39-4396-a01c-fcf3f597c8b3",
+          "body": "{\n  \"success\": true,\n  \"data\": [\n    {\n      \"id\": 1,\n      \"name\": \"Administrador\",\n      \"email\": \"admin@biblioteca.com\",\n      \"role\": \"admin\",\n      \"status\": \"active\",\n      \"createdAt\": \"2024-01-01T00:00:00.000Z\",\n      \"lastLogin\": \"2024-01-15T10:30:00.000Z\"\n    },\n    {\n      \"id\": 2,\n      \"name\": \"Bibliotecario\",\n      \"email\": \"bibliotecario@biblioteca.com\",\n      \"role\": \"librarian\",\n      \"status\": \"active\",\n      \"createdAt\": \"2024-01-02T00:00:00.000Z\",\n      \"lastLogin\": \"2024-01-15T09:15:00.000Z\"\n    },\n    {\n      \"id\": 3,\n      \"name\": \"María García\",\n      \"email\": \"maria@biblioteca.com\",\n      \"role\": \"user\",\n      \"status\": \"active\",\n      \"createdAt\": \"2024-01-04T00:00:00.000Z\",\n      \"lastLogin\": \"2024-01-15T14:45:00.000Z\"\n    }\n  ],\n  \"total\": 3,\n  \"page\": 1,\n  \"limit\": 12,\n  \"totalPages\": 1\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Resultados de búsqueda",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false,
+          "crudKey": "id",
+          "callbacks": []
+        }
+      ],
+      "type": "http",
+      "responseMode": null,
+      "streamingMode": null,
+      "streamingInterval": 0
+    },
+    {
+      "uuid": "73bff8e1-c6e1-4443-a9d5-6d8f02f66330",
+      "documentation": "Préstamos del usuario",
+      "method": "get",
+      "endpoint": "api/loans/user",
+      "responses": [
+        {
+          "uuid": "91749465-c648-479b-9774-018c026e1fe4",
+          "body": "{\n  \"success\": true,\n  \"data\": [\n    {\n      \"id\": 1,\n      \"book\": {\n        \"id\": 1,\n        \"title\": \"El Señor de los Anillos\",\n        \"author\": \"J.R.R. Tolkien\",\n        \"isbn\": \"978-84-450-7054-7\"\n      },\n      \"status\": \"active\",\n      \"loanDate\": \"2024-01-10T00:00:00.000Z\",\n      \"dueDate\": \"2024-01-25T00:00:00.000Z\",\n      \"returnDate\": null\n    },\n    {\n      \"id\": 2,\n      \"book\": {\n        \"id\": 2,\n        \"title\": \"1984\",\n        \"author\": \"George Orwell\",\n        \"isbn\": \"978-84-397-2077-5\"\n      },\n      \"status\": \"overdue\",\n      \"loanDate\": \"2024-01-05T00:00:00.000Z\",\n      \"dueDate\": \"2024-01-15T00:00:00.000Z\",\n      \"returnDate\": null\n    },\n    {\n      \"id\": 3,\n      \"book\": {\n        \"id\": 3,\n        \"title\": \"Cien años de soledad\",\n        \"author\": \"Gabriel García Márquez\",\n        \"isbn\": \"978-84-397-2078-2\"\n      },\n      \"status\": \"pending\",\n      \"loanDate\": \"2024-01-20T00:00:00.000Z\",\n      \"dueDate\": \"2024-02-05T00:00:00.000Z\",\n      \"returnDate\": null\n    }\n  ],\n  \"total\": 3\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Préstamos del usuario",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false,
+          "crudKey": "id",
+          "callbacks": []
+        }
+      ],
+      "type": "http",
+      "responseMode": null,
+      "streamingMode": null,
+      "streamingInterval": 0
+    },
+    {
+      "uuid": "3b625fca-bf9c-4d23-8b3b-baa03cce0021",
+      "documentation": "Extender préstamo",
+      "method": "get",
+      "endpoint": "api/loans/extend/:id",
+      "responses": [
+        {
+          "uuid": "074e9a4a-a8a6-4111-bf39-b925767f84da",
+          "body": "{\n  \"success\": true,\n  \"message\": \"Préstamo extendido exitosamente\",\n  \"data\": {\n    \"id\": 1,\n    \"dueDate\": \"2024-02-05T00:00:00.000Z\"\n  }\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Préstamo extendido",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false,
+          "crudKey": "id",
+          "callbacks": []
+        }
+      ],
+      "type": "http",
+      "responseMode": null,
+      "streamingMode": null,
+      "streamingInterval": 0
+    }
+  ],
+  "headers": [
+    {
+      "key": "Access-Control-Allow-Origin",
+      "value": "*"
+    },
+    {
+      "key": "Access-Control-Allow-Methods",
+      "value": "GET, POST, PUT, DELETE, OPTIONS"
+    },
+    {
+      "key": "Access-Control-Allow-Headers",
+      "value": "Content-Type, Authorization"
+    }
+  ],
+  "uuid": "e965e9a2-619e-4be2-a3f0-082b22f46d06",
+  "lastMigration": 33,
+  "endpointPrefix": "",
+  "latency": 0,
+  "hostname": "",
+  "folders": [
+    {
+      "uuid": "2340f9d6-0f51-4ae5-9e7e-de1277139de7",
+      "name": "🔐 Autenticación",
+      "children": [
+        {
+          "type": "route",
+          "uuid": "4a34a616-a353-465b-be2f-f2d0991d2855"
+        },
+        {
+          "type": "route",
+          "uuid": "8812eedb-6539-47e7-b3e0-1f2886988157"
+        }
+      ]
+    },
+    {
+      "uuid": "d73f9d73-8f1b-4b40-8c93-e873c693d8e6",
+      "name": "📚 Gestión de Libros",
+      "children": [
+        {
+          "type": "route",
+          "uuid": "1f30bfe1-bf4c-463c-9e25-bccb97113915"
+        },
+        {
+          "type": "route",
+          "uuid": "d7bfe5c6-affa-42f1-89f2-fc538ca2a4f9"
+        },
+        {
+          "type": "route",
+          "uuid": "87f274a2-9b86-403d-b896-356060db949a"
+        },
+        {
+          "type": "route",
+          "uuid": "8ff765a6-e4df-4907-b3b8-b70c16f22ffe"
+        },
+        {
+          "type": "route",
+          "uuid": "7f3fcd42-ba1c-4046-a6be-b6efb22fbe33"
+        }
+      ]
+    },
+    {
+      "uuid": "0d61808e-4b20-457c-82eb-41013da43dad",
+      "name": "👥 Gestión de Usuarios",
+      "children": [
+        {
+          "type": "route",
+          "uuid": "331410c7-acdc-43fd-90f4-158d2630a74c"
+        },
+        {
+          "type": "route",
+          "uuid": "2d85ab07-47da-4d02-b0bb-f510b662a8c2"
+        },
+        {
+          "type": "route",
+          "uuid": "27b2806d-c904-4f97-8339-dff3b1c2d99e"
+        }
+      ]
+    },
+    {
+      "uuid": "591f6ec4-e15b-4ba0-a4aa-3ef73cac546d",
+      "name": "📖 Gestión de Préstamos",
+      "children": [
+        {
+          "type": "route",
+          "uuid": "73bff8e1-c6e1-4443-a9d5-6d8f02f66330"
+        },
+        {
+          "type": "route",
+          "uuid": "3b625fca-bf9c-4d23-8b3b-baa03cce0021"
+        }
+      ]
+    }
+  ],
+  "rootChildren": [
+    {
+      "type": "folder",
+      "uuid": "2340f9d6-0f51-4ae5-9e7e-de1277139de7"
+    },
+    {
+      "type": "folder",
+      "uuid": "d73f9d73-8f1b-4b40-8c93-e873c693d8e6"
+    },
+    {
+      "type": "folder",
+      "uuid": "0d61808e-4b20-457c-82eb-41013da43dad"
+    },
+    {
+      "type": "folder",
+      "uuid": "591f6ec4-e15b-4ba0-a4aa-3ef73cac546d"
+    }
+  ],
+  "tlsOptions": {
+    "enabled": false,
+    "type": "CERT",
+    "pfxPath": "",
+    "certPath": "",
+    "keyPath": "",
+    "caPath": "",
+    "passphrase": ""
+  },
+  "proxyReqHeaders": [],
+  "proxyResHeaders": [],
+  "data": [],
+  "callbacks": [],
+  "proxyMode": false,
+  "proxyHost": "",
+  "proxyRemovePrefix": false,
+  "cors": true
+}

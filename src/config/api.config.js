@@ -34,7 +34,7 @@ const API_CONFIG = {
     // Libros
     BOOKS: {
       BASE: '/api/libros',
-      SEARCH: '/api/libros/search',
+      SEARCH: '/api/libros',
       BY_CATEGORY: '/api/libros/category',
       BY_STATUS: '/api/libros/status',
     },

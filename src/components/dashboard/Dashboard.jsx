@@ -194,49 +194,9 @@ const Dashboard = () => {
           <Typography variant="h3" component="h2" gutterBottom sx={{ fontWeight: 600 }}>
             ¡Bienvenido, {user?.name || 'Usuario'}!
           </Typography>
-          <Typography variant="h6" color="text.secondary">
-            Panel de control del Sistema de Gestión de Biblioteca
-          </Typography>
         </Box>
 
-        {/* Statistics Grid - Role-based */}
-        {isAdmin() && (
-          <Grid container spacing={3} sx={{ mb: 4, width: '100%' }}>
-            <Grid item xs={12} sm={6} md={3} lg={3}>
-              <StatCard
-                title="Total de Libros"
-                value={stats.totalBooks}
-                icon={<BookIcon />}
-                color="primary"
-              />
-            </Grid>
-            <Grid item xs={12} sm={6} md={3} lg={3}>
-              <StatCard
-                title="Libros Disponibles"
-                value={stats.availableBooks}
-                icon={<BookIcon />}
-                color="success"
-              />
-            </Grid>
-            <Grid item xs={12} sm={6} md={3} lg={3}>
-              <StatCard
-                title="Total de Usuarios"
-                value={stats.totalUsers}
-                icon={<PersonIcon />}
-                color="info"
-              />
-            </Grid>
-            <Grid item xs={12} sm={6} md={3} lg={3}>
-              <StatCard
-                title="Préstamos Activos"
-                value={stats.activeLoans}
-                icon={<TrendingUpIcon />}
-                color="warning"
-              />
-            </Grid>
-          </Grid>
-        )}
-
+  
         {isLibrarian() && (
           <Grid container spacing={3} sx={{ mb: 4, width: '100%' }}>
             <Grid item xs={12} sm={6} md={3} lg={3}>
@@ -305,76 +265,62 @@ const Dashboard = () => {
 
         {/* Role-based Content */}
         {isAdmin() && (
-          <Box sx={{ mb: 4 }}>
-            <Typography variant="h4" component="h3" gutterBottom sx={{ fontWeight: 600 }}>
-              Panel de Administración
-            </Typography>
-            <Grid container spacing={3} sx={{ width: '100%' }}>
-              <Grid item xs={12} sm={6} md={4} lg={3}>
-                <QuickActionCard
-                  title="Gestionar Usuarios"
-                  description="Administrar usuarios del sistema"
-                  icon={<PersonIcon />}
-                  color="primary"
-                  onClick={() => navigate('/admin/users')}
-                />
+          <>
+            
+
+            <Box sx={{ mb: 4 }}>
+              <Typography variant="h4" component="h3" gutterBottom sx={{ fontWeight: 600 }}>
+                Panel de Administración
+              </Typography>
+              <Grid container spacing={3} sx={{ width: '100%' }}>
+                <Grid item xs={12} sm={6} md={4} lg={3}>
+                  <QuickActionCard
+                    title="Gestionar Usuarios"
+                    description="Administrar usuarios del sistema"
+                    icon={<PersonIcon />}
+                    color="primary"
+                    onClick={() => navigate('/admin/users')}
+                  />
+                </Grid>
+                <Grid item xs={12} sm={6} md={4} lg={3}>
+                  <QuickActionCard
+                    title="Gestionar Libros"
+                    description="Administrar inventario de libros"
+                    icon={<BookIcon />}
+                    color="secondary"
+                    onClick={() => navigate('/admin/books')}
+                  />
+                </Grid>
+                <Grid item xs={12} sm={6} md={4} lg={3}>
+                  <QuickActionCard
+                    title="Reportes"
+                    description="Generar reportes del sistema"
+                    icon={<TrendingUpIcon />}
+                    color="info"
+                    onClick={() => navigate('/admin/reports')}
+                  />
+                </Grid>
+                <Grid item xs={12} sm={6} md={4} lg={3}>
+                  <QuickActionCard
+                    title="Configuración"
+                    description="Configurar parámetros del sistema"
+                    icon={<SettingsIcon />}
+                    color="warning"
+                    onClick={() => navigate('/admin/settings')}
+                  />
+                </Grid>
+                <Grid item xs={12} sm={6} md={4} lg={3}>
+                  <QuickActionCard
+                    title="Estados de Libros"
+                    description="Gestionar estados del inventario"
+                    icon={<EditIcon />}
+                    color="success"
+                    onClick={() => navigate('/admin/book-status')}
+                  />
+                </Grid>
               </Grid>
-              <Grid item xs={12} sm={6} md={4} lg={3}>
-                <QuickActionCard
-                  title="Gestionar Libros"
-                  description="Administrar inventario de libros"
-                  icon={<BookIcon />}
-                  color="secondary"
-                  onClick={() => navigate('/admin/books')}
-                />
-              </Grid>
-              <Grid item xs={12} sm={6} md={4} lg={3}>
-                <QuickActionCard
-                  title="Buscar Libros"
-                  description="Buscar en el inventario"
-                  icon={<SearchIcon />}
-                  color="info"
-                  onClick={() => navigate('/books')}
-                />
-              </Grid>
-              <Grid item xs={12} sm={6} md={4} lg={3}>
-                <QuickActionCard
-                  title="Reportes"
-                  description="Generar reportes del sistema"
-                  icon={<TrendingUpIcon />}
-                  color="info"
-                  onClick={() => navigate('/admin/reports')}
-                />
-              </Grid>
-              <Grid item xs={12} sm={6} md={4} lg={3}>
-                <QuickActionCard
-                  title="Configuración"
-                  description="Configurar parámetros del sistema"
-                  icon={<SettingsIcon />}
-                  color="warning"
-                  onClick={() => navigate('/admin/settings')}
-                />
-              </Grid>
-              <Grid item xs={12} sm={6} md={4} lg={3}>
-                <QuickActionCard
-                  title="Estados de Libros"
-                  description="Gestionar estados del inventario"
-                  icon={<EditIcon />}
-                  color="success"
-                  onClick={() => navigate('/admin/book-status')}
-                />
-              </Grid>
-              <Grid item xs={12} sm={6} md={4} lg={3}>
-                <QuickActionCard
-                  title="Categorías"
-                  description="Administrar categorías de libros"
-                  icon={<LibraryIcon />}
-                  color="error"
-                  onClick={() => navigate('/admin/categories')}
-                />
-              </Grid>
-            </Grid>
-          </Box>
+            </Box>
+          </>
         )}
 
         {isLibrarian() && (
@@ -505,57 +451,7 @@ const Dashboard = () => {
           </Box>
         )}
 
-        {/* Recent Activity */}
-        <Box sx={{ mb: 4 }}>
-          <Typography variant="h4" component="h3" gutterBottom sx={{ fontWeight: 600 }}>
-            Actividad Reciente
-          </Typography>
-          <Card>
-            <CardContent>
-              <List>
-                <ListItem>
-                  <ListItemIcon>
-                    <BookIcon color="primary" />
-                  </ListItemIcon>
-                  <ListItemText
-                    primary="Nuevo libro agregado: 'El Señor de los Anillos'"
-                    secondary="Hace 2 horas"
-                  />
-                </ListItem>
-                <Divider />
-                <ListItem>
-                  <ListItemIcon>
-                    <PersonIcon color="secondary" />
-                  </ListItemIcon>
-                  <ListItemText
-                    primary="Préstamo procesado para María García"
-                    secondary="Hace 3 horas"
-                  />
-                </ListItem>
-                <Divider />
-                <ListItem>
-                  <ListItemIcon>
-                    <TrendingUpIcon color="success" />
-                  </ListItemIcon>
-                    <ListItemText
-                      primary="Devolución registrada: 'Cien años de soledad'"
-                      secondary="Hace 4 horas"
-                    />
-                </ListItem>
-                <Divider />
-                <ListItem>
-                  <ListItemIcon>
-                    <NotificationsIcon color="warning" />
-                  </ListItemIcon>
-                  <ListItemText
-                    primary="Recordatorio: 3 préstamos próximos a vencer"
-                    secondary="Hace 5 horas"
-                  />
-                </ListItem>
-              </List>
-            </CardContent>
-          </Card>
-        </Box>
+       
       </Container>
     </Box>
   );

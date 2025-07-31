@@ -8,6 +8,9 @@ import Login from './components/auth/Login';
 import Dashboard from './components/dashboard/Dashboard';
 import UserManagement from './components/admin/UserManagement';
 import BookManagement from './components/admin/BookManagement';
+import Reports from './components/admin/Reports';
+import Settings from './components/admin/Settings';
+import BookStatus from './components/admin/BookStatus';
 import BookSearch from './components/search/BookSearch';
 import UserSearch from './components/search/UserSearch';
 import MyLoans from './components/user/MyLoans';
@@ -55,6 +58,30 @@ function App() {
                 element={
                   <ProtectedRoute requiredRole="admin">
                     <BookManagement />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/admin/reports"
+                element={
+                  <ProtectedRoute requiredRole="admin">
+                    <Reports />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/admin/settings"
+                element={
+                  <ProtectedRoute requiredRole="admin">
+                    <Settings />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/admin/book-status"
+                element={
+                  <ProtectedRoute requiredRole="admin">
+                    <BookStatus />
                   </ProtectedRoute>
                 }
               />

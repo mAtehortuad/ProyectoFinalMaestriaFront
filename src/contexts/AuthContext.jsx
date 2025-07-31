@@ -103,6 +103,11 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
+  // Función para actualizar usuario (usada en Settings)
+  const updateUser = (updatedUser) => {
+    setUser(updatedUser);
+  };
+
   // Función para limpiar errores
   const clearError = () => {
     setError(null);
@@ -142,6 +147,7 @@ export const AuthProvider = ({ children }) => {
     login,
     logout,
     updateProfile,
+    updateUser,
     clearError,
     hasRole,
     isAdmin,

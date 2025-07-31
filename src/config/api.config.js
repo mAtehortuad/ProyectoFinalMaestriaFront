@@ -19,9 +19,9 @@ const API_CONFIG = {
     // Autenticación
     AUTH: {
       LOGIN: '/api/login',
-      LOGOUT: '/api/logout',
-      REFRESH: '/api/refresh',
-      VERIFY: '/api/verify',
+      LOGOUT: '/api/auth/logout',
+      REFRESH: '/api/auth/refresh',
+      VERIFY: '/api/auth/verify',
     },
     
     // Usuarios
@@ -33,10 +33,25 @@ const API_CONFIG = {
     
     // Libros
     BOOKS: {
-      BASE: '/api/libros',
-      SEARCH: '/api/libros',
-      BY_CATEGORY: '/api/libros/category',
-      BY_STATUS: '/api/libros/status',
+      BASE: '/api/books',
+      SEARCH: '/api/books',
+      BY_CATEGORY: '/api/books/category',
+      BY_STATUS: '/api/books/status',
+    },
+    
+    // Categorías
+    CATEGORIES: {
+      BASE: '/api/categories',
+    },
+    
+    // Estados de Libros
+    BOOK_STATUS: {
+      BASE: '/api/book-status',
+    },
+    
+    // Inventario Individual de Libros
+    BOOK_INVENTORY: {
+      BASE: '/api/book-inventory',
     },
     
     // Préstamos
@@ -47,14 +62,18 @@ const API_CONFIG = {
       EXTEND: '/api/loans/extend',
     },
     
-    // Categorías
-    CATEGORIES: {
-      BASE: '/api/categories',
+    // Reportes
+    REPORTS: {
+      BASE: '/api/reports',
+      STATISTICS: '/api/reports/statistics',
+      EXPORT: '/api/reports/export',
     },
     
-    // Estados de libros
-    BOOK_STATUS: {
-      BASE: '/api/book-status',
+    // Configuraciones
+    SETTINGS: {
+      BASE: '/api/settings',
+      SYSTEM: '/api/settings/system',
+      USER: '/api/settings/user',
     },
   },
   

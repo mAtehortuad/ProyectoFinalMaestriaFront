@@ -31,6 +31,8 @@ import {
   Grid,
   Fab,
   CircularProgress,
+  InputAdornment,
+  Pagination,
 } from '@mui/material';
 import {
   Add as AddIcon,
@@ -43,6 +45,7 @@ import {
   Block as BlockIcon,
   CheckCircle as ActiveIcon,
   ArrowBack as ArrowBackIcon,
+  Search as SearchIcon,
 } from '@mui/icons-material';
 import { useAuth } from '../../contexts/AuthContext';
 import { useNavigate } from 'react-router-dom';
@@ -53,6 +56,7 @@ const UserManagement = () => {
   const { isAdmin } = useAuth();
   const navigate = useNavigate();
   const [users, setUsers] = useState([]);
+  const [filteredUsers, setFilteredUsers] = useState([]);
   const [loading, setLoading] = useState(true);
   const [openDialog, setOpenDialog] = useState(false);
   const [editingUser, setEditingUser] = useState(null);
@@ -63,6 +67,14 @@ const UserManagement = () => {
     role: 'user',
     status: 'active',
   });
+
+  // Estados para búsqueda y paginación
+  const [searchTerm, setSearchTerm] = useState('');
+  const [searchFilter, setSearchFilter] = useState('name');
+  const [currentPage, setCurrentPage] = useState(1);
+  const [usersPerPage] = useState(10);
+  const [appliedSearch, setAppliedSearch] = useState('');
+  const [appliedFilter, setAppliedFilter] = useState('name');
 
   // Verificar acceso de administrador
   useEffect(() => {
@@ -75,6 +87,43 @@ const UserManagement = () => {
   useEffect(() => {
     loadUsers();
   }, []);
+
+  // Filtrar usuarios basado en búsqueda
+  useEffect(() => {
+    let filtered = users;
+
+    if (appliedSearch.trim()) {
+      const term = appliedSearch.toLowerCase();
+      filtered = users.filter(user => {
+        switch (appliedFilter) {
+          case 'name':
+            return user.name.toLowerCase().includes(term);
+          case 'email':
+            return user.email.toLowerCase().includes(term);
+          case 'role':
+            return getRoleDisplayName(user.role).toLowerCase().includes(term);
+          case 'status':
+            return getStatusDisplayName(user.status).toLowerCase().includes(term);
+          default:
+            return (
+              user.name.toLowerCase().includes(term) ||
+              user.email.toLowerCase().includes(term) ||
+              getRoleDisplayName(user.role).toLowerCase().includes(term) ||
+              getStatusDisplayName(user.status).toLowerCase().includes(term)
+            );
+        }
+      });
+    }
+
+    setFilteredUsers(filtered);
+    setCurrentPage(1); // Resetear a la primera página cuando se filtra
+  }, [users, appliedSearch, appliedFilter]);
+
+  // Calcular usuarios para la página actual
+  const indexOfLastUser = currentPage * usersPerPage;
+  const indexOfFirstUser = indexOfLastUser - usersPerPage;
+  const currentUsers = filteredUsers.slice(indexOfFirstUser, indexOfLastUser);
+  const totalPages = Math.ceil(filteredUsers.length / usersPerPage);
 
   const loadUsers = async () => {
     try {
@@ -184,6 +233,30 @@ const UserManagement = () => {
     }
   };
 
+  const handleSearchChange = (event) => {
+    setSearchTerm(event.target.value);
+  };
+
+  const handleFilterChange = (event) => {
+    setSearchFilter(event.target.value);
+  };
+
+  const handleSearch = () => {
+    setAppliedSearch(searchTerm);
+    setAppliedFilter(searchFilter);
+  };
+
+  const handleClearSearch = () => {
+    setSearchTerm('');
+    setSearchFilter('all');
+    setAppliedSearch('');
+    setAppliedFilter('all');
+  };
+
+  const handlePageChange = (event, value) => {
+    setCurrentPage(value);
+  };
+
   const getRoleIcon = (role) => {
     switch (role) {
       case 'admin':
@@ -269,7 +342,7 @@ const UserManagement = () => {
 
         {/* Estadísticas */}
         <Grid container spacing={3} sx={{ mb: 4 }}>
-          <Grid item xs={12} sm={6} md={3}>
+          <Grid xs={12} sm={6} md={3}>
             <Card>
               <CardContent>
                 <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
@@ -288,7 +361,7 @@ const UserManagement = () => {
               </CardContent>
             </Card>
           </Grid>
-          <Grid item xs={12} sm={6} md={3}>
+          <Grid xs={12} sm={6} md={3}>
             <Card>
               <CardContent>
                 <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
@@ -307,7 +380,7 @@ const UserManagement = () => {
               </CardContent>
             </Card>
           </Grid>
-          <Grid item xs={12} sm={6} md={3}>
+          <Grid xs={12} sm={6} md={3}>
             <Card>
               <CardContent>
                 <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
@@ -326,7 +399,7 @@ const UserManagement = () => {
               </CardContent>
             </Card>
           </Grid>
-          <Grid item xs={12} sm={6} md={3}>
+          <Grid xs={12} sm={6} md={3}>
             <Card>
               <CardContent>
                 <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
@@ -346,6 +419,80 @@ const UserManagement = () => {
             </Card>
           </Grid>
         </Grid>
+
+        {/* Barra de búsqueda */}
+        <Paper sx={{ p: 2, mb: 3 }}>
+          <Grid container spacing={2} alignItems="center">
+            <Grid xs={12} md={4}>
+              <TextField
+                fullWidth
+                placeholder="Buscar usuarios..."
+                value={searchTerm}
+                onChange={handleSearchChange}
+                InputProps={{
+                  startAdornment: (
+                    <InputAdornment position="start">
+                      <SearchIcon />
+                    </InputAdornment>
+                  ),
+                }}
+              />
+            </Grid>
+            <Grid xs={12} md={3}>
+              <FormControl fullWidth>
+                <InputLabel>Filtrar por</InputLabel>
+                <Select
+                  value={searchFilter}
+                  onChange={handleFilterChange}
+                  label="Filtrar por"
+                >
+                  <MenuItem value="name">Nombre</MenuItem>
+                  <MenuItem value="email">Email</MenuItem>
+                  <MenuItem value="role">Rol</MenuItem>
+                  <MenuItem value="status">Estado</MenuItem>
+                </Select>
+              </FormControl>
+            </Grid>
+            <Grid xs={12} md={2}>
+              <Button
+                variant="contained"
+                onClick={handleSearch}
+                fullWidth
+                sx={{
+                  background: 'linear-gradient(45deg, #8B4513, #D2691E)',
+                  '&:hover': {
+                    background: 'linear-gradient(45deg, #654321, #8B4513)',
+                  },
+                }}
+              >
+                Buscar
+              </Button>
+            </Grid>
+            <Grid xs={12} md={2}>
+              <Button
+                variant="outlined"
+                onClick={handleClearSearch}
+                fullWidth
+                sx={{
+                  borderColor: 'primary.main',
+                  color: 'primary.main',
+                  '&:hover': {
+                    borderColor: 'primary.dark',
+                    backgroundColor: 'primary.light',
+                    color: 'primary.dark',
+                  },
+                }}
+              >
+                Limpiar
+              </Button>
+            </Grid>
+            <Grid xs={12} md={1}>
+              <Typography variant="body2" color="text.secondary" align="center">
+                {filteredUsers.length} de {users.length}
+              </Typography>
+            </Grid>
+          </Grid>
+        </Paper>
 
         {/* Tabla de Usuarios */}
         <Paper sx={{ width: '100%', overflow: 'hidden' }}>
@@ -373,88 +520,105 @@ const UserManagement = () => {
               <CircularProgress />
             </Box>
           ) : (
-            <TableContainer>
-              <Table>
-                <TableHead>
-                  <TableRow>
-                    <TableCell>Usuario</TableCell>
-                    <TableCell>Email</TableCell>
-                    <TableCell>Rol</TableCell>
-                    <TableCell>Estado</TableCell>
-                    <TableCell>Fecha de Creación</TableCell>
-                    <TableCell align="center">Acciones</TableCell>
-                  </TableRow>
-                </TableHead>
-                <TableBody>
-                  {users.map((user) => (
-                    <TableRow key={user.id} hover>
-                      <TableCell>
-                        <Box sx={{ display: 'flex', alignItems: 'center' }}>
-                          <Avatar sx={{ mr: 2, bgcolor: 'primary.light' }}>
-                            {getRoleIcon(user.role)}
-                          </Avatar>
-                          <Typography variant="body1" sx={{ fontWeight: 500 }}>
-                            {user.name}
-                          </Typography>
-                        </Box>
-                      </TableCell>
-                      <TableCell>{user.email}</TableCell>
-                      <TableCell>
-                        <Chip
-                          icon={getRoleIcon(user.role)}
-                          label={getRoleDisplayName(user.role)}
-                          color={getRoleColor(user.role)}
-                          variant="filled"
-                        />
-                      </TableCell>
-                      <TableCell>
-                        <Chip
-                          icon={user.status === 'active' ? <ActiveIcon /> : <BlockIcon />}
-                          label={getStatusDisplayName(user.status)}
-                          color={getStatusColor(user.status)}
-                          variant="filled"
-                        />
-                      </TableCell>
-                      <TableCell>
-                        {new Date(user.createdAt).toLocaleDateString('es-ES')}
-                      </TableCell>
-                      <TableCell align="center">
-                        <Box sx={{ display: 'flex', gap: 1, justifyContent: 'center' }}>
-                          <Tooltip title="Ver detalles">
-                            <IconButton
-                              size="small"
-                              color="info"
-                              onClick={() => handleOpenDialog(user)}
-                            >
-                              <ViewIcon />
-                            </IconButton>
-                          </Tooltip>
-                          <Tooltip title="Editar usuario">
-                            <IconButton
-                              size="small"
-                              color="primary"
-                              onClick={() => handleOpenDialog(user)}
-                            >
-                              <EditIcon />
-                            </IconButton>
-                          </Tooltip>
-                          <Tooltip title="Eliminar usuario">
-                            <IconButton
-                              size="small"
-                              color="error"
-                              onClick={() => handleDeleteUser(user.id)}
-                              disabled={user.id === 1} // No permitir eliminar al admin principal
-                            >
-                              <DeleteIcon />
-                            </IconButton>
-                          </Tooltip>
-                        </Box>
-                      </TableCell>
+            <>
+              <TableContainer>
+                <Table>
+                  <TableHead>
+                    <TableRow>
+                      <TableCell>Usuario</TableCell>
+                      <TableCell>Email</TableCell>
+                      <TableCell>Rol</TableCell>
+                      <TableCell>Estado</TableCell>
+                      <TableCell>Fecha de Creación</TableCell>
+                      <TableCell align="center">Acciones</TableCell>
                     </TableRow>
-                  ))}
-                </TableBody>
-              </Table>
-            </TableContainer>
+                  </TableHead>
+                  <TableBody>
+                    {currentUsers.map((user) => (
+                      <TableRow key={user.id} hover>
+                        <TableCell>
+                          <Box sx={{ display: 'flex', alignItems: 'center' }}>
+                            <Avatar sx={{ mr: 2, bgcolor: 'primary.light' }}>
+                              {getRoleIcon(user.role)}
+                            </Avatar>
+                            <Typography variant="body1" sx={{ fontWeight: 500 }}>
+                              {user.name}
+                            </Typography>
+                          </Box>
+                        </TableCell>
+                        <TableCell>{user.email}</TableCell>
+                        <TableCell>
+                          <Chip
+                            icon={getRoleIcon(user.role)}
+                            label={getRoleDisplayName(user.role)}
+                            color={getRoleColor(user.role)}
+                            variant="filled"
+                          />
+                        </TableCell>
+                        <TableCell>
+                          <Chip
+                            icon={user.status === 'active' ? <ActiveIcon /> : <BlockIcon />}
+                            label={getStatusDisplayName(user.status)}
+                            color={getStatusColor(user.status)}
+                            variant="filled"
+                          />
+                        </TableCell>
+                        <TableCell>
+                          {new Date(user.createdAt).toLocaleDateString('es-ES')}
+                        </TableCell>
+                        <TableCell align="center">
+                          <Box sx={{ display: 'flex', gap: 1, justifyContent: 'center' }}>
+                            <Tooltip title="Ver detalles">
+                              <IconButton
+                                size="small"
+                                color="info"
+                                onClick={() => handleOpenDialog(user)}
+                              >
+                                <ViewIcon />
+                              </IconButton>
+                            </Tooltip>
+                            <Tooltip title="Editar usuario">
+                              <IconButton
+                                size="small"
+                                color="primary"
+                                onClick={() => handleOpenDialog(user)}
+                              >
+                                <EditIcon />
+                              </IconButton>
+                            </Tooltip>
+                            <Tooltip title="Eliminar usuario">
+                              <IconButton
+                                size="small"
+                                color="error"
+                                onClick={() => handleDeleteUser(user.id)}
+                                disabled={user.id === 1} // No permitir eliminar al admin principal
+                              >
+                                <DeleteIcon />
+                              </IconButton>
+                            </Tooltip>
+                          </Box>
+                        </TableCell>
+                      </TableRow>
+                    ))}
+                  </TableBody>
+                </Table>
+              </TableContainer>
+
+              {/* Paginación */}
+              {totalPages > 1 && (
+                <Box sx={{ display: 'flex', justifyContent: 'center', p: 2, borderTop: 1, borderColor: 'divider' }}>
+                  <Pagination
+                    count={totalPages}
+                    page={currentPage}
+                    onChange={handlePageChange}
+                    color="primary"
+                    showFirstButton
+                    showLastButton
+                    size="large"
+                  />
+                </Box>
+              )}
+            </>
           )}
         </Paper>
 

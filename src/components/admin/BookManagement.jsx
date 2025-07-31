@@ -56,7 +56,6 @@ const BookManagement = () => {
   const navigate = useNavigate();
   const [books, setBooks] = useState([]);
   const [categories, setCategories] = useState([]);
-  const [bookStatuses, setBookStatuses] = useState([]);
   const [loading, setLoading] = useState(true);
   const [openDialog, setOpenDialog] = useState(false);
   const [editingBook, setEditingBook] = useState(null);
@@ -66,7 +65,6 @@ const BookManagement = () => {
     author: '',
     isbn: '',
     category: '',
-    status: 'available',
     quantity: 1,
     description: '',
     publicationYear: '',
@@ -88,15 +86,13 @@ const BookManagement = () => {
   const loadData = async () => {
     try {
       setLoading(true);
-      const [booksResponse, categoriesResponse, statusesResponse] = await Promise.all([
+      const [booksResponse, categoriesResponse] = await Promise.all([
         apiService.get(API_CONFIG.ENDPOINTS.BOOKS.BASE),
         apiService.get(API_CONFIG.ENDPOINTS.CATEGORIES.BASE),
-        apiService.get(API_CONFIG.ENDPOINTS.BOOK_STATUS.BASE),
       ]);
 
       setBooks(booksResponse.data || []);
       setCategories(categoriesResponse.data || []);
-      setBookStatuses(statusesResponse.data || []);
     } catch (error) {
       console.error('Error loading data:', error);
       setSnackbar({
@@ -215,41 +211,7 @@ const BookManagement = () => {
     }
   };
 
-  const getStatusIcon = (status) => {
-    switch (status) {
-      case 'available':
-        return <AvailableIcon />;
-      case 'borrowed':
-        return <BorrowedIcon />;
-      case 'damaged':
-        return <DamagedIcon />;
-      default:
-        return <BookIcon />;
-    }
-  };
 
-  const getStatusColor = (status) => {
-    switch (status) {
-      case 'available':
-        return 'success';
-      case 'borrowed':
-        return 'warning';
-      case 'reserved':
-        return 'info';
-      case 'maintenance':
-        return 'secondary';
-      case 'lost':
-      case 'damaged':
-        return 'error';
-      default:
-        return 'default';
-    }
-  };
-
-  const getStatusDisplayName = (status) => {
-    const statusObj = bookStatuses.find(s => s.name === status);
-    return statusObj ? statusObj.displayName : status;
-  };
 
   const getCategoryDisplayName = (categoryId) => {
     const category = categories.find(c => c.id === categoryId);
@@ -318,12 +280,12 @@ const BookManagement = () => {
               <CardContent>
                 <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
                   <Box>
-                    <Typography variant="h4" component="div" sx={{ fontWeight: 600, color: 'success.main' }}>
-                      {books.filter(b => b.status === 'available').length}
-                    </Typography>
-                    <Typography variant="body2" color="text.secondary">
-                      Disponibles
-                    </Typography>
+                                         <Typography variant="h4" component="div" sx={{ fontWeight: 600, color: 'success.main' }}>
+                       {books.reduce((total, book) => total + (book.availableQuantity || 0), 0)}
+                     </Typography>
+                     <Typography variant="body2" color="text.secondary">
+                       Disponibles
+                     </Typography>
                   </Box>
                   <Avatar sx={{ bgcolor: 'success.light', color: 'success.main' }}>
                     <AvailableIcon />
@@ -337,12 +299,12 @@ const BookManagement = () => {
               <CardContent>
                 <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
                   <Box>
-                    <Typography variant="h4" component="div" sx={{ fontWeight: 600, color: 'warning.main' }}>
-                      {books.filter(b => b.status === 'borrowed').length}
-                    </Typography>
-                    <Typography variant="body2" color="text.secondary">
-                      Prestados
-                    </Typography>
+                                         <Typography variant="h4" component="div" sx={{ fontWeight: 600, color: 'warning.main' }}>
+                       {books.reduce((total, book) => total + (book.borrowedQuantity || 0), 0)}
+                     </Typography>
+                     <Typography variant="body2" color="text.secondary">
+                       Prestados
+                     </Typography>
                   </Box>
                   <Avatar sx={{ bgcolor: 'warning.light', color: 'warning.main' }}>
                     <BorrowedIcon />
@@ -356,12 +318,12 @@ const BookManagement = () => {
               <CardContent>
                 <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
                   <Box>
-                    <Typography variant="h4" component="div" sx={{ fontWeight: 600, color: 'error.main' }}>
-                      {books.filter(b => b.status === 'damaged' || b.status === 'lost').length}
-                    </Typography>
-                    <Typography variant="body2" color="text.secondary">
-                      Dañados/Perdidos
-                    </Typography>
+                                         <Typography variant="h4" component="div" sx={{ fontWeight: 600, color: 'error.main' }}>
+                       {books.reduce((total, book) => total + (book.maintenanceQuantity || 0) + (book.lostQuantity || 0), 0)}
+                     </Typography>
+                     <Typography variant="body2" color="text.secondary">
+                       En Mantenimiento/Perdidos
+                     </Typography>
                   </Box>
                   <Avatar sx={{ bgcolor: 'error.light', color: 'error.main' }}>
                     <DamagedIcon />
@@ -400,18 +362,19 @@ const BookManagement = () => {
           ) : (
             <TableContainer>
               <Table>
-                <TableHead>
-                  <TableRow>
-                    <TableCell>Libro</TableCell>
-                    <TableCell>Autor</TableCell>
-                    <TableCell>ISBN</TableCell>
-                    <TableCell>Categoría</TableCell>
-                    <TableCell>Estado</TableCell>
-                    <TableCell>Cantidad</TableCell>
-                    <TableCell>Año</TableCell>
-                    <TableCell align="center">Acciones</TableCell>
-                  </TableRow>
-                </TableHead>
+                                 <TableHead>
+                   <TableRow>
+                     <TableCell>Libro</TableCell>
+                     <TableCell>Autor</TableCell>
+                     <TableCell>ISBN</TableCell>
+                     <TableCell>Categoría</TableCell>
+                     <TableCell>Total</TableCell>
+                     <TableCell>Disponibles</TableCell>
+                     <TableCell>Prestados</TableCell>
+                     <TableCell>Año</TableCell>
+                     <TableCell align="center">Acciones</TableCell>
+                   </TableRow>
+                 </TableHead>
                 <TableBody>
                   {books.map((book) => (
                     <TableRow key={book.id} hover>
@@ -440,20 +403,22 @@ const BookManagement = () => {
                           variant="outlined"
                         />
                       </TableCell>
-                      <TableCell>
-                        <Chip
-                          icon={getStatusIcon(book.status)}
-                          label={getStatusDisplayName(book.status)}
-                          color={getStatusColor(book.status)}
-                          variant="filled"
-                        />
-                      </TableCell>
-                      <TableCell>
-                        <Typography variant="body2" sx={{ fontWeight: 500 }}>
-                          {book.quantity}
-                        </Typography>
-                      </TableCell>
-                      <TableCell>{book.publicationYear}</TableCell>
+                                             <TableCell>
+                         <Typography variant="body2" sx={{ fontWeight: 500 }}>
+                           {book.quantity}
+                         </Typography>
+                       </TableCell>
+                       <TableCell>
+                         <Typography variant="body2" sx={{ fontWeight: 500, color: 'success.main' }}>
+                           {book.availableQuantity || 0}
+                         </Typography>
+                       </TableCell>
+                       <TableCell>
+                         <Typography variant="body2" sx={{ fontWeight: 500, color: 'warning.main' }}>
+                           {book.borrowedQuantity || 0}
+                         </Typography>
+                       </TableCell>
+                       <TableCell>{book.publicationYear}</TableCell>
                       <TableCell align="center">
                         <Box sx={{ display: 'flex', gap: 1, justifyContent: 'center' }}>
                           <Tooltip title="Ver detalles">
@@ -578,20 +543,15 @@ const BookManagement = () => {
                   </FormControl>
                 </Grid>
                 <Grid item xs={12} md={6}>
-                  <FormControl fullWidth margin="normal">
-                    <InputLabel>Estado</InputLabel>
-                    <Select
-                      value={formData.status}
-                      onChange={handleInputChange('status')}
-                      label="Estado"
-                    >
-                      {bookStatuses.map((status) => (
-                        <MenuItem key={status.id} value={status.name}>
-                          {status.displayName}
-                        </MenuItem>
-                      ))}
-                    </Select>
-                  </FormControl>
+                                       <TextField
+                       fullWidth
+                       label="Descripción"
+                       value={formData.description}
+                       onChange={handleInputChange('description')}
+                       margin="normal"
+                       multiline
+                       rows={4}
+                     />
                 </Grid>
                 <Grid item xs={12}>
                   <TextField
